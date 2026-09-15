@@ -61,7 +61,8 @@ table.scheme .vb{display:block;color:var(--brick-d);font-weight:600;margin-top:2
 .legend{font-size:12px;color:var(--soft);margin:0 0 18px;line-height:1.5}
 
 .detail{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 26px}
-.ftag{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;background:var(--tint);color:var(--soft);margin-bottom:10px}
+.ftag-row{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-bottom:12px}
+.ftag{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;background:var(--tint);color:var(--soft)}
 .formula{font-size:16px;font-weight:600;line-height:1.55;margin:0}
 .formula b{color:var(--brick)}
 .example{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--navy-d);
@@ -574,9 +575,9 @@ var CELLS=[
  {t:"fu",f:"q",short:'<span class="op">Will</span><span class="pr">'+ALL6+'</span><span class="vb">+ глагол ?</span>',full:'<b>Will</b> + I / you / we / they / he / she + глагол ?',ex:"Will you work?"},
  {t:"fu",f:"a",short:'<span class="pr">'+ALL6+'</span><span class="op">will</span><span class="vb">+ глагол</span>',full:'I / you / we / they / he / she + <b>will</b> + глагол',ex:"You will work."},
  {t:"fu",f:"n",short:'<span class="pr">'+ALL6+'</span><span class="op">won\'t</span><span class="vb">+ глагол</span>',full:"I / you / we / they / he / she + <b>won't</b> + глагол",ex:"You won't work."},
- {t:"pr",f:"q",short:'<span class="op">Do</span><span class="pr">I · you · we · they</span><span class="op">Does</span><span class="pr">he · she</span><span class="vb">+ глагол ?</span>',full:'<b>Do</b> + I / you / we / they + глагол ? · <b>Does</b> + he / she + глагол ?',ex:"Do you work? · Does he work?"},
- {t:"pr",f:"a",short:'<span class="pr">I · you · we · they</span><span class="vb">+ глагол</span><span class="pr">he · she</span><span class="vb">+ глагол-s</span>',full:'I / you / we / they + глагол · he / she + глагол<b>-s</b>',ex:"You work. · He works."},
- {t:"pr",f:"n",short:'<span class="op">don\'t</span><span class="pr">I · you · we · they</span><span class="op">doesn\'t</span><span class="pr">he · she</span><span class="vb">+ глагол</span>',full:"I / you / we / they + <b>don't</b> + глагол · he / she + <b>doesn't</b> + глагол",ex:"You don't work. · He doesn't work."},
+ {t:"pr",f:"q",short:'<span class="op">Do</span><span class="pr">I · you · we · they</span><span class="op">Does</span><span class="pr">he · she</span><span class="vb">+ глагол ?</span>',full:'<b>Do</b> + I / you / we / they + глагол ?<br><b>Does</b> + he / she + глагол ?',ex:"Do you work?<br>Does he work?"},
+ {t:"pr",f:"a",short:'<span class="pr">I · you · we · they</span><span class="vb">+ глагол</span><span class="pr">he · she</span><span class="vb">+ глагол-s</span>',full:'I / you / we / they + глагол<br>he / she + глагол<b>-s</b>',ex:"You work.<br>He works."},
+ {t:"pr",f:"n",short:'<span class="op">don\'t</span><span class="pr">I · you · we · they</span><span class="op">doesn\'t</span><span class="pr">he · she</span><span class="vb">+ глагол</span>',full:"I / you / we / they + <b>don't</b> + глагол<br>he / she + <b>doesn't</b> + глагол",ex:"You don't work.<br>He doesn't work."},
  {t:"pa",f:"q",short:'<span class="op">Did</span><span class="pr">'+ALL6+'</span><span class="vb">+ глагол ?</span>',full:'<b>Did</b> + I / you / we / they / he / she + глагол ?',ex:"Did you work?"},
  {t:"pa",f:"a",short:'<span class="pr">'+ALL6+'</span><span class="vb">+ глагол в прош.</span>',full:"I / you / we / they / he / she + глагол в прошедшем времени",ex:"You worked.",note:"Правильные получают -ed. Неправильные меняются не по правилу — форма всегда в подсказке."},
  {t:"pa",f:"n",short:'<span class="pr">'+ALL6+'</span><span class="op">didn\'t</span><span class="vb">+ глагол</span>',full:"I / you / we / they / he / she + <b>didn't</b> + глагол",ex:"You didn't work."}
@@ -596,10 +597,10 @@ function selectCell(t,f){
   var td=document.querySelector('#scheme-table td[data-cell="'+t+f+'"]');
   if(td)td.classList.add("active");
   $("cell-detail").innerHTML=
-    '<span class="ftag">'+TL[t]+" · "+FL[f]+'</span>'+
+    '<div class="ftag-row"><span class="ftag">'+TL[t]+'</span><span class="ftag">'+FL[f]+'</span></div>'+
     '<p class="formula">'+c.full+'</p>'+
     '<div class="example">'+c.ex+
-      '<button class="audio-btn" onclick="say(\''+c.ex.split(" · ")[0].replace(/'/g,"\\'")+'\')">🔊</button></div>'+
+      '<button class="audio-btn" onclick="say(\''+c.ex.split("<br>")[0].replace(/'/g,"\\'")+'\')">🔊</button></div>'+
     (c.note?'<p class="fnote">'+c.note+"</p>":"")+
     '<button class="selfcheck" onclick="selfCheck(\''+t+'\',\''+f+'\')">Проверить себя →</button>'
 }
