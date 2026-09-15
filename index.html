@@ -420,12 +420,16 @@ function show(a,f){return cap(a)+(f=="q"?"?":".")}
 
 /* v[6]=="dat" — глаголы вроде "нравиться": по-русски подлежащее стоит в
    дательном падеже (мне/тебе/ему...), а сама форма ("нравится"/"нравилось"/
-   будущее "будет нравиться") не меняется по лицам — меняется только местоимение */
-function ruSent(v,p,t,f){
+   будущее "будет нравиться") не меняется по лицам — меняется только местоимение.
+   pastIdxOverride — используется только для проверки ответа: "я" и "ты" по
+   умолчанию завязаны на один род (я — женский, ты — мужской, для разнообразия),
+   но по-английски род не виден, так что при сверке ответа нужно уметь построить
+   и альтернативный род той же фразы (см. ruMatches) */
+function ruSent(v,p,t,f,pastIdxOverride){
   var d=P[p],core,subj=p,dat=v[6]=="dat";
   if(dat)subj=DAT[p];
   if(t=="pr")core=v[3][d[1]];
-  else if(t=="pa")core=v[4][d[2]];
+  else if(t=="pa")core=v[4][pastIdxOverride!=null?pastIdxOverride:d[2]];
   else core=(dat?"будет":d[3])+" "+v[1].split(" (")[0];
   if(f=="n")core="не "+core;
   return cap(subj+" "+core)+(f=="q"?"?":".")}
@@ -730,13 +734,42 @@ function pick(){
   eagleNewQuestion()
 }
 
+/* расстояние Левенштейна — чтобы отличить "почти то же слово, другая форма"
+   от "совсем другое слово" при разборе конкретной ошибки */
+function levenshtein(a,b){
+  var m=a.length,n=b.length,d=[],i,j;
+  for(i=0;i<=m;i++)d[i]=[i];
+  for(j=0;j<=n;j++)d[0][j]=j;
+  for(i=1;i<=m;i++)for(j=1;j<=n;j++)
+    d[i][j]=a[i-1]==b[j-1]?d[i-1][j-1]:1+Math.min(d[i-1][j-1],d[i-1][j],d[i][j-1]);
+  return d[m][n]}
+
+/* конкретный разбор именно этой ошибки — сравниваем ответ и правильный вариант
+   слово за словом, вместо того чтобы просто повторять общую формулу схемы */
+function specificMistakeNote(userTxt,rightTxt){
+  var u=norm(userTxt).replace(/ё/g,"е").split(" ").filter(Boolean);
+  var r=norm(rightTxt).replace(/ё/g,"е").split(" ").filter(Boolean);
+  if(u.length!==r.length)
+    return "В ответе "+(u.length<r.length?"не хватает слова":"лишнее слово")+" по сравнению с верным вариантом.";
+  var diffIdx=[];
+  for(var i=0;i<r.length;i++)if(u[i]!==r[i])diffIdx.push(i);
+  if(!diffIdx.length)return null;
+  if(diffIdx.length===1){
+    var i=diffIdx[0],uw=u[i],rw=r[i],dist=levenshtein(uw,rw);
+    if(i===0)return "Отличается первое слово: у тебя «"+uw+"», нужно «"+rw+"».";
+    if(dist>=Math.min(uw.length,rw.length)*.5)
+      return "Слово «"+uw+"» здесь не подходит — похоже на другое слово или другой вид глагола. Нужная форма — «"+rw+"».";
+    return "Почти верно — отличается только форма слова: «"+uw+"» вместо «"+rw+"»."
+  }
+  return null}
+
 function check(){
   var userTxt=$("ans").value.trim();
   if(!userTxt){$("err").style.display="block";return}
   $("err").style.display="none";
-  /* "ты" и "вы" по-английски звучат одинаково ("you") — если переводят с английского
-     на русский, по одной английской фразе нельзя угадать, какое именно "you" загадано,
-     поэтому принимаем оба варианта */
+  /* "ты"/"вы" и род "я"/"ты" по-английски никак не различаются ("you", и "I"/"you"
+     без указания пола) — по одной английской фразе нельзя угадать ни то, ни другое,
+     поэтому при переводе С английского принимаем оба варианта в обоих случаях */
   function ruMatches(txt){
     var u=norm(txt).replace(/ё/g,"е"),target=norm(cur.ru).replace(/ё/g,"е");
     if(u==target)return true;
@@ -744,16 +777,19 @@ function check(){
       var altP=cur.p=="ты"?"вы":"ты";
       if(u==norm(ruSent(cur.v,altP,cur.t,cur.f)).replace(/ё/g,"е"))return true
     }
+    if(cur.t=="pa"&&(cur.p=="я"||cur.p=="ты")){
+      var altIdx=P[cur.p][2]===0?1:0;
+      if(u==norm(ruSent(cur.v,cur.p,cur.t,cur.f,altIdx)).replace(/ё/g,"е"))return true
+    }
     return false}
-  var good,right,showDiff;
+  var good,right;
   if(cur.type=="translate"){
     right=cur.dir=="ru"?show(cur.en,cur.f):cur.ru;
-    good=cur.dir=="ru"?norm(userTxt)==norm(cur.en):ruMatches(userTxt);
-    showDiff=cur.dir=="ru"
+    good=cur.dir=="ru"?norm(userTxt)==norm(cur.en):ruMatches(userTxt)
   }else if(cur.type=="listen"){
-    right=cur.ru;good=ruMatches(userTxt);showDiff=false
+    right=cur.ru;good=ruMatches(userTxt)
   }else{
-    right=cur.answer;good=norm(userTxt)==norm(cur.answer);showDiff=true
+    right=cur.answer;good=norm(userTxt)==norm(cur.answer)
   }
   tot++;
   var key=cur.vi+"|"+cur.p,html;
@@ -761,8 +797,8 @@ function check(){
     html='<span class="verdict good">Верно.</span> <span class="right">'+right+"</span>"}
   else{streak=0;miss[key]=1;
     html='<span class="verdict bad">Не совсем.</span><div class="right">'+
-      (showDiff?diff(right,userTxt):right)+"</div>"+
-      '<div class="why">'+why()+"</div>"}
+      diff(right,userTxt)+"</div>"+
+      '<div class="why">'+why(userTxt,right)+"</div>"}
   $("fb").innerHTML=html;
   $("score").textContent="Верно: "+ok+" из "+tot+" · подряд: "+streak;
   done=true;$("chk").textContent="Дальше →";
@@ -776,15 +812,23 @@ function schemeHint(){
     :"Подлежащее + "+(third?"doesn't":"don't")+" + глагол";
   return f=="q"?"Did + подлежащее + глагол ?":f=="a"?"Подлежащее + глагол в прошедшем времени":"Подлежащее + didn't + глагол"}
 
-function why(){
-  var v=cur.v,t=cur.t,f=cur.type=="dialogue"?"a":cur.f,txt=schemeHint()+".";
+function why(userTxt,rightTxt){
+  var v=cur.v,t=cur.t,f=cur.type=="dialogue"?"a":cur.f,parts=[];
+  var note=userTxt!=null?specificMistakeNote(userTxt,rightTxt):null;
+  if(note)parts.push(note);
+  var rule=schemeHint()+".";
   if(t=="pa"){
-    txt+=v[2]?" Глагол "+v[0]+" — неправильный: прошедшее время "+pastForm(v)+", а не "+reg(v[0])+"."
-      :" Глагол "+v[0]+" правильный: прошедшее время — "+pastForm(v)+" (+ed)."
+    rule+=v[2]?" Глагол "+v[0]+" — неправильный: прошедшее время "+pastForm(v)+", а не "+reg(v[0])+"."
+      :" Глагол "+v[0]+" правильный: прошедшее время — "+pastForm(v)+" (+ed).";
+    /* по-русски тренажёр всегда учит один вид (несовершенный — "что делал"), а не
+       два — так что естественный по смыслу совершенный ответ ("сделал") тоже
+       засчитывается как несовпадение, и это стоит объяснить прямо, а не молчать */
+    rule+=" По-русски здесь всегда несовершенный вид («что делал», не «что сделал») — даже если естественнее сказать через совершенный, тренажёр держится одной формы на каждый глагол.";
   }else if(t=="pr"&&f=="a"&&cur.third){
-    txt+=" У he/she в утверждении к глаголу добавляется -s: "+s3(v[0])+"."
+    rule+=" У he/she в утверждении к глаголу добавляется -s: "+s3(v[0])+"."
   }
-  return txt}
+  parts.push(rule);
+  return parts.join(" ")}
 
 function wordHint(){
   var v=cur.v,irregular=!!v[2],past=pastForm(v);
