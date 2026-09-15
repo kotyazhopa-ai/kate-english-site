@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Разговорный английский — Урок 3</title>
+<style>
+:root{
+  --bg:#FAF9F5; --card:#FFFFFF; --ink:#1C2430; --soft:#6B7280; --line:#E7E5DE;
+  --navy:#2B4570; --navy-d:#1C2E4A; --brick:#A6433D; --brick-d:#7E312C;
+  --good:#2F6F4F; --tint:#F1F0EA; --mark:#FBE7C8; --markink:#6B4A0B;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#14181D; --card:#1B2027; --ink:#EAECEE; --soft:#93999F; --line:#2A3038;
+        --navy:#7FA0CB; --navy-d:#AFC4E2; --brick:#D98F87; --brick-d:#E8ADA6;
+        --good:#6FCBA0; --tint:#20262D; --mark:#3A2F16; --markink:#F0D7A6;}
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);position:relative;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+body::before,body::after{content:"";position:fixed;border-radius:50%;filter:blur(90px);
+  z-index:-1;opacity:.12;pointer-events:none}
+body::before{width:520px;height:520px;background:var(--navy);top:-180px;left:-200px}
+body::after{width:480px;height:480px;background:var(--brick);bottom:-180px;right:-200px}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px;position:relative}
+.hide{display:none}
+body.no-scroll{overflow:hidden}
+#view-lesson{padding-bottom:56px}
+
+/* nav между уроками */
+.lesson-nav{display:flex;gap:14px;margin:0 0 14px;font-size:12px}
+.lesson-nav a{color:var(--soft);text-decoration:none;font-weight:600}
+.lesson-nav a.cur{color:var(--navy)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:44px 0 4px}
+.bigword{position:absolute;right:6px;top:8px;font-size:60px;font-weight:800;color:var(--navy);
+  opacity:.08;line-height:1;letter-spacing:-.01em;white-space:nowrap;z-index:0;pointer-events:none}
+.hero-in{position:relative;z-index:1}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin:0 0 16px;font-weight:600}
+.hero h1{font-size:38px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.hero h1 span{color:var(--navy)}
+.hero .lead{font-size:15.5px;line-height:1.65;color:var(--soft);max-width:500px;margin:0 0 28px}
+.start-btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:15px;font-weight:600;
+  padding:14px 22px;border-radius:12px;border:0;background:var(--navy);color:#fff;cursor:pointer}
+.start-btn:active{transform:scale(.98)}
+
+/* lesson content */
+.section-title{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--soft);
+  margin:40px 0 6px;font-weight:700}
+.section-lead{font-size:14.5px;color:var(--soft);line-height:1.6;margin:0 0 16px}
+
+.theory{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 18px;font-size:14.5px;line-height:1.65}
+.theory p{margin:0 0 10px}
+.theory p:last-child{margin-bottom:0}
+.theory b{color:var(--navy-d)}
+.compare{display:flex;gap:10px;margin:12px 0;flex-wrap:wrap}
+.compare .cbox{flex:1 1 180px;background:var(--tint);border-radius:10px;padding:10px 12px}
+.compare .cbox .ctitle{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--soft);font-weight:700;margin-bottom:4px}
+.compare .cbox .cline{font-size:14px;margin:2px 0}
+.compare .cbox .cline b{color:var(--brick-d)}
+
+table.scheme{width:100%;border-collapse:collapse;table-layout:fixed;background:var(--card);
+  border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:0 0 8px}
+table.scheme th,table.scheme td{border:1px solid var(--line);padding:10px 6px;text-align:center;vertical-align:middle}
+table.scheme th{font-size:11px;color:var(--soft);font-weight:700;background:var(--tint)}
+table.scheme th:first-child{width:56px}
+table.scheme td{font-size:12.5px;line-height:1.3;font-weight:600;cursor:pointer;color:var(--ink)}
+table.scheme td:active,table.scheme td.active{background:var(--tint)}
+table.scheme .op{display:block;padding:3px 5px;border-radius:6px;background:rgba(43,69,112,.12);
+  color:var(--navy-d);margin:0 0 3px;font-weight:700}
+table.scheme .pr{display:block;font-size:10px;color:var(--soft);font-weight:500;margin:2px 0;line-height:1.25}
+table.scheme .vb{display:block;color:var(--brick-d);font-weight:600;margin-top:2px}
+.legend{font-size:12px;color:var(--soft);margin:0 0 18px;line-height:1.5}
+
+.detail{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 26px}
+.ftag-row{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-bottom:12px}
+.ftag{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;background:var(--tint);color:var(--soft)}
+.formula{font-size:16px;font-weight:600;line-height:1.55;margin:0}
+.formula b{color:var(--brick)}
+.example{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--navy-d);
+  padding-top:10px;margin-top:10px;border-top:1px solid var(--line)}
+.fnote{font-size:12.5px;color:var(--soft);margin-top:8px;line-height:1.5}
+.selfcheck{margin-top:12px;font:inherit;font-size:13px;padding:8px 13px;border-radius:9px;
+  border:1px solid var(--line);background:transparent;color:var(--navy);cursor:pointer}
+.audio-btn{border:0;background:none;cursor:pointer;font-size:15px;color:var(--brick);padding:0 2px;line-height:1}
+#verbs-list{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#verbs-list.hide{display:none}
+.vcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 11px;font-size:13.5px}
+.vcard b{display:block}
+.vcard .vru{color:var(--soft);font-size:12.5px}
+@media (max-width:420px){#verbs-list{grid-template-columns:1fr}}
+
+/* trainer */
+.tr-view{display:flex;flex-direction:column;height:100vh}
+.tr-view.hide{display:none}
+.trainbar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 0 6px;flex-wrap:wrap}
+.back{font-size:14px;color:var(--soft);background:none;border:0;padding:0;cursor:pointer}
+.filters{display:flex;gap:6px;align-items:center}
+.filters select{font:inherit;font-size:12px;padding:6px 7px;border:1px solid var(--line);
+  border-radius:7px;background:var(--card);color:var(--ink);-webkit-appearance:none;appearance:none;max-width:120px}
+.focus{flex:1 1 auto;overflow-y:auto;min-height:0;display:flex;flex-direction:column;justify-content:center;padding:6px 0 24px}
+.stage{position:relative}
+.excard{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 20px}
+#eagle{position:absolute;width:118px;height:118px;z-index:4;pointer-events:none;
+  top:-58px;left:auto;right:10px;
+  transition:left .6s ease,right .6s ease}
+#eagle img{display:block;width:100%;height:100%;object-fit:contain;
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.16))}
+#eagle:not(.fly):not(.react):not(.walking):not(.activity) img{animation:eagleBob 2.6s ease-in-out infinite}
+#eagle.walking img{animation:eagleWalk .32s ease-in-out infinite}
+#eagle.activity{width:122px;height:160px;top:-96px}
+#eagle.fly{width:132px;height:132px}
+#eagle.fly-ltr{animation:eagleFlyLTR 6.5s ease-in-out forwards}
+#eagle.fly-rtl{animation:eagleFlyRTL 6.5s ease-in-out forwards}
+#eagle.fly-ltr img{transform:scaleX(1)}
+#eagle.fly-rtl img{transform:scaleX(-1)}
+#eagle.react{width:136px;height:136px;top:-72px}
+#eagle.react img{animation:eagleReact .5s ease-out}
+@keyframes eagleBob{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-7px)}
+}
+@keyframes eagleWalk{
+  0%,100%{transform:rotate(-5deg) translateY(0)}
+  50%{transform:rotate(5deg) translateY(-3px)}
+}
+@keyframes eagleFlyLTR{
+  0%{left:-20%;right:auto;opacity:0}
+  10%{opacity:1}
+  90%{opacity:1}
+  100%{left:106%;right:auto;opacity:0}
+}
+@keyframes eagleFlyRTL{
+  0%{right:-20%;left:auto;opacity:0}
+  10%{opacity:1}
+  90%{opacity:1}
+  100%{right:106%;left:auto;opacity:0}
+}
+@keyframes eagleReact{
+  0%{transform:scale(.82);opacity:0}
+  100%{transform:scale(1);opacity:1}
+}
+.extags{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.extag{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--tint);color:var(--soft)}
+.extag.type{background:var(--navy);color:#fff}
+#task{font-size:23px;line-height:1.35;font-weight:600;margin:0 0 18px}
+.audio-only{display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.audio-only button{font-size:20px;padding:14px 18px;border-radius:12px;border:1px solid var(--line);
+  background:var(--tint);cursor:pointer;line-height:1}
+.audio-only .hint-small{font-size:13px;color:var(--soft)}
+input#ans{width:100%;font:inherit;font-size:17px;padding:14px;border:1px solid var(--line);
+  border-radius:10px;background:var(--bg);color:var(--ink)}
+input#ans:focus{outline:2px solid var(--navy);outline-offset:1px}
+.tools{display:flex;gap:8px;margin-top:10px}
+.tools button{font:inherit;font-size:13px;padding:9px 12px;border-radius:8px;border:1px solid var(--line);
+  background:transparent;color:var(--soft);cursor:pointer}
+#err{font-size:13px;color:var(--brick);margin-top:8px;display:none}
+.acts{margin-top:16px}
+.acts button{width:100%;font:inherit;font-size:15px;padding:13px;border-radius:10px;border:1px solid var(--line);
+  background:transparent;color:var(--ink);cursor:pointer}
+#chk{background:var(--navy);color:#fff;border-color:var(--navy)}
+#fb{margin-top:14px}
+#fb .verdict{font-weight:700}
+#fb .verdict.good{color:var(--good)}
+#fb .verdict.bad{color:var(--brick)}
+#fb .right{font-size:17px;margin-top:4px;font-weight:600}
+#fb .why{margin-top:8px;font-size:13.5px;color:var(--soft);line-height:1.55}
+mark{background:var(--mark);color:var(--markink);border-radius:3px;padding:0 2px}
+.hints{border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+.hgrid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.hgrid button{font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;border:1px solid var(--line);
+  background:transparent;color:var(--soft);cursor:pointer}
+.wordhint{background:var(--tint);border-radius:10px;padding:10px 12px;font-size:14px}
+.wh-row{display:flex;align-items:center;gap:8px;padding:3px 0;flex-wrap:wrap}
+.wh-tag{font-size:11px;padding:2px 8px;border-radius:20px}
+.wh-tag{background:transparent;border:1.5px solid}
+.wh-tag.bad2{border-color:var(--brick);color:var(--brick)}
+.wh-tag.good2{border-color:var(--good);color:var(--good)}
+#hint{font-size:14px;color:var(--soft);line-height:1.55}
+#score{font-size:13px;color:var(--soft);text-align:center;margin-top:16px}
+
+/* voice chat modal */
+#voiceModal{position:fixed;inset:0;background:rgba(20,24,29,.5);display:flex;
+  align-items:center;justify-content:center;z-index:1000;padding:16px}
+#voiceModal.hide{display:none}
+.vc-card{background:var(--card);border-radius:16px;padding:26px 22px;max-width:380px;width:100%;
+  text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.vc-title{font-size:17px;font-weight:700;margin-bottom:2px}
+.vc-sub{font-size:13px;color:var(--soft);margin-bottom:18px}
+.vc-orb{width:84px;height:84px;border-radius:50%;margin:0 auto 16px;background:var(--navy);
+  opacity:.15;position:relative;transition:opacity .2s}
+.vc-orb::after{content:"🎙";position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;font-size:32px}
+.vc-orb.live{opacity:.9;animation:vcPulse 1.6s ease-in-out infinite}
+.vc-orb.err{background:var(--brick);opacity:.85;animation:none}
+@keyframes vcPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.vc-status{font-size:14px;margin-bottom:14px;min-height:20px;color:var(--soft)}
+.vc-status.err{color:var(--brick)}
+.vc-transcript{max-height:160px;overflow-y:auto;text-align:left;font-size:13.5px;line-height:1.5;
+  background:var(--tint);border-radius:10px;padding:10px 12px;margin-bottom:16px}
+.vc-transcript:empty{display:none}
+.vc-line{margin-bottom:6px}
+.vc-line b{color:var(--navy)}
+.vc-acts{display:flex;gap:10px;justify-content:center}
+.vc-acts button{font:inherit;font-size:14px;padding:9px 18px;border-radius:9px;border:1px solid var(--line);
+  background:transparent;color:var(--ink);cursor:pointer}
+.vc-acts button.primary{background:var(--brick);border-color:var(--brick);color:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div id="view-lesson">
+
+  <div class="hero">
+    <div class="bigword">BE</div>
+    <div class="hero-in">
+      <p class="lesson-nav"><a href="index.html">Урок 1</a><a href="lesson2.html">Урок 2</a><a href="lesson3.html" class="cur">Урок 3</a></p>
+      <p class="eyebrow">Урок 3 из 16 · Разговорный английский</p>
+      <h1>Глагол-связка <span>be</span> — то, что в русском не произносится</h1>
+      <p class="lead">В русском языке в настоящем времени мы не говорим «Я есть дома» — глагол «быть» просто пропадает: «Я дома». В английском связка be обязательна всегда, в любом времени, и выбросить её нельзя. Эта связка — отдельная маленькая грамматика внутри той же схемы 3×3, что была в уроке 1.</p>
+      <button class="start-btn" id="go-train">Начать тренировку →</button>
+    </div>
+  </div>
+
+  <p class="section-title">Теория</p>
+  <div class="theory">
+    <p>Ты правильно заметила: в русском настоящем времени глагол «быть» не звучит вообще — ни в утверждении, ни в вопросе, ни в отрицании. «Я дома», «Ты не дома?», «Он на работе» — везде подлежащее идёт сразу к обстоятельству места, без связки. Лингвисты называют это <b>нулевой связкой</b>: глагол там как бы есть по смыслу, просто не произносится.</p>
+    <p>В английском связка <b>be</b> обязательна и не пропадает никогда — в любом из трёх времён и в любой из трёх форм предложения. «I home» — грамматически невозможно, нужно «I <b>am</b> home».</p>
+    <p>Важная деталь, которую стоит знать заранее: в прошедшем и будущем времени русское «быть» никуда не пропадает — оно точно так же обязательно, как и в английском. Будущее — «я <b>буду</b> дома» — это та же формула будущего времени, что была в уроке 1 (буду / будешь / будет / будем / будете / будут). Прошедшее — «я <b>был</b> дома», «она <b>была</b> дома», «они <b>были</b> дома». Пропадает связка только в настоящем — и именно поэтому по-русски так легко забыть поставить am/is/are в английском.</p>
+    <div class="compare">
+      <div class="cbox">
+        <div class="ctitle">Русский</div>
+        <div class="cline">Наст.: <b>—</b> (связки нет) — «Я дома»</div>
+        <div class="cline">Прош.: <b>был / была / были</b> — «Я был дома»</div>
+        <div class="cline">Буд.: <b>буду / будешь…</b> — «Я буду дома»</div>
+      </div>
+      <div class="cbox">
+        <div class="ctitle">English</div>
+        <div class="cline">Present: <b>am / is / are</b> — "I am home"</div>
+        <div class="cline">Past: <b>was / were</b> — "I was home"</div>
+        <div class="cline">Future: <b>will be</b> — "I will be home"</div>
+      </div>
+    </div>
+    <p>В настоящем времени связка выбирается по подлежащему: <b>I — am</b>, <b>he / she — is</b>, <b>you / we / they — are</b>. В прошедшем — только два варианта: <b>I / he / she — was</b>, <b>you / we / they — were</b>. В будущем — всегда одна форма <b>be</b> после will, кто бы ни было подлежащим.</p>
+  </div>
+
+  <p class="section-title">Схема</p>
+  <p class="section-lead">Та же логика, что в уроке 1: строки — время, столбцы — форма. Нажми на ячейку, чтобы увидеть полную формулу и пример.</p>
+
+  <div id="table-holder"></div>
+  <p class="legend">Буд. — будущее · Наст. — настоящее · Прош. — прошедшее · ? — вопрос · + — утверждение · − — отрицание</p>
+
+  <div class="detail" id="cell-detail"></div>
+
+  <button class="selfcheck" id="show-verbs">Посмотреть все фразы места из этого урока</button>
+  <div id="verbs-list" class="hide"></div>
+
+</div>
+
+<div id="view-train" class="tr-view hide">
+  <div class="trainbar">
+    <button class="back" id="back">← к уроку</button>
+    <div class="filters">
+      <select id="tns"><option value="0">Все времена</option><option value="fu">Будущее</option><option value="pr">Настоящее</option><option value="pa">Прошедшее</option></select>
+      <select id="frm"><option value="0">Все типы предложений</option><option value="q">Вопрос</option><option value="a">Утверждение</option><option value="n">Отрицание</option></select>
+      <select id="voice-select" class="hide"></select>
+    </div>
+  </div>
+
+  <div class="focus">
+    <div class="stage">
+    <div id="eagle"><img id="eagle-img" src="eagle/2.png" alt=""/></div>
+    <div class="excard">
+      <div class="extags">
+        <span class="extag type" id="tag-type">—</span>
+        <span class="extag" id="tag-t">—</span>
+        <span class="extag" id="tag-f">—</span>
+        <span class="extag hide" id="tag-r">повтор</span>
+      </div>
+
+      <div id="task-area"></div>
+
+      <input id="ans" placeholder="Твой ответ" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"/>
+
+      <div class="tools">
+        <button id="voice">🎙 Ответить голосом</button>
+      </div>
+
+      <p id="err">Сначала введи ответ</p>
+      <div id="fb"></div>
+      <div class="acts"><button id="chk">Проверить</button></div>
+
+      <div class="hints">
+        <div class="hgrid">
+          <button data-h="word">Фраза</button>
+          <button data-h="scheme">Схема предложения</button>
+          <button id="askBtn" type="button">🎙 Задать вопрос</button>
+        </div>
+        <div id="hint"></div>
+      </div>
+    </div>
+    </div>
+    <p id="score">Верно: 0 из 0 · подряд: 0</p>
+  </div>
+</div>
+
+</div>
+
+<div id="voiceModal" class="hide" role="dialog" aria-modal="true">
+  <div class="vc-card">
+    <div class="vc-title">Задать вопрос голосом</div>
+    <div class="vc-sub">Спроси что угодно про английский — ответит голосом</div>
+    <div id="vcOrb" class="vc-orb"></div>
+    <div id="vcStatus" class="vc-status">Подключение…</div>
+    <div id="vcTranscript" class="vc-transcript"></div>
+    <div class="vc-acts">
+      <button id="vcClose" type="button">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== данные урока 3: глагол-связка be ===== */
+/* фразы места — специально без прилагательных (типа "занят/занята"), чтобы не
+   тянуть за собой согласование прилагательного по роду — это отдельная тема
+   не этого урока. Все предложные обороты ниже одинаковы в любом времени и
+   не меняют падеж от времени (в отличие от урока 2, где падеж места зависит
+   от предлога to/in/from) */
+var COMPLEMENTS=[
+ {ru:"дома",en:"at home"},
+ {ru:"на работе",en:"at work"},
+ {ru:"в школе",en:"at school"},
+ {ru:"в Москве",en:"in Moscow"},
+ {ru:"в машине",en:"in the car"},
+ {ru:"на улице",en:"outside"},
+ {ru:"в отпуске",en:"on vacation"},
+ {ru:"здесь",en:"here"},
+ {ru:"там",en:"there"},
+ {ru:"в магазине",en:"at the store"},
+ {ru:"в парке",en:"in the park"},
+ {ru:"в отеле",en:"at the hotel"}
+];
+var BE_PAST=["был","была","были"];
+var P={
+ "я":  ["I",0,1,"буду"],
+ "ты": ["you",1,0,"будешь"],
+ "вы": ["you",2,2,"будете"],
+ "мы": ["we",3,2,"будем"],
+ "он": ["he",4,0,"будет"],
+ "она":["she",4,1,"будет"],
+ "они":["they",5,2,"будут"]
+};
+var ALL=["я","ты","вы","мы","он","она","они"];
+var TL={fu:"Будущее",pr:"Настоящее",pa:"Прошедшее"},FL={q:"Вопрос",a:"Утверждение",n:"Отрицание"};
+var TSHORT={fu:"Буд.",pr:"Наст.",pa:"Прош."};
+var TYPEL={translate:"Перевод",listen:"Аудирование",dialogue:"Ответь на вопрос"};
+
+function $(i){return document.getElementById(i)}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+function norm(s){return s.toLowerCase().replace(/[’]/g,"'").replace(/won't/g,"will not")
+  .replace(/n't/g," not").replace(/'m/g," am").replace(/'re/g," are").replace(/'ll/g," will")
+  .replace(/'s/g," is").replace(/[.,!?;:]/g,"").replace(/\s+/g," ").trim()}
+function show(a,f){return cap(a)+(f=="q"?"?":".")}
+
+/* am/is/are — по подлежащему в настоящем; was/were — по подлежащему в прошедшем */
+function beFormPr(p){var s=P[p][0];return s=="I"?"am":(s=="he"||s=="she")?"is":"are"}
+function beFormPa(p){var s=P[p][0];return (s=="I"||s=="he"||s=="she")?"was":"were"}
+
+/* pastIdxOverride — как и в уроке 1: "я" и "ты" по умолчанию завязаны на разный
+   род (я — женский, ты — мужской, для разнообразия), при сверке ответа нужно
+   уметь построить и альтернативный род той же фразы (см. ruMatches) */
+function ruSentBe(p,t,f,comp,pastIdxOverride){
+  var d=P[p],core;
+  if(t=="pr")core=comp.ru; /* нулевая связка — глагола нет вообще */
+  else if(t=="pa")core=BE_PAST[pastIdxOverride!=null?pastIdxOverride:d[2]]+" "+comp.ru;
+  else core=d[3]+" "+comp.ru; /* буду/будешь… уже сами по себе будущее от «быть» */
+  if(f=="n")core="не "+core;
+  return cap(p+" "+core)+(f=="q"?"?":".")}
+
+function enSentBe(p,t,f,comp){
+  var s=P[p][0];
+  if(t=="fu")return f=="a"?s+" will be "+comp.en
+    :f=="n"?s+" will not be "+comp.en
+    :"Will "+s+" be "+comp.en;
+  var form=t=="pr"?beFormPr(p):beFormPa(p);
+  if(f=="a")return s+" "+form+" "+comp.en;
+  if(f=="n")return s+" "+form+" not "+comp.en;
+  return cap(form)+" "+s+" "+comp.en}
+
+function diff(right,user){
+  var A=right.split(" "),B=norm(user).split(" "),n=A.length,m=B.length,d=[],i,j;
+  for(i=0;i<=n;i++){d[i]=[];for(j=0;j<=m;j++)d[i][j]=0}
+  for(i=1;i<=n;i++)for(j=1;j<=m;j++)
+    d[i][j]=norm(A[i-1])==B[j-1]?d[i-1][j-1]+1:Math.max(d[i-1][j],d[i][j-1]);
+  var keep={};i=n;j=m;
+  while(i>0&&j>0){
+    if(norm(A[i-1])==B[j-1]){keep[i-1]=1;i--;j--}
+    else if(d[i-1][j]>=d[i][j-1])i--;else j--}
+  return A.map(function(w,k){return keep[k]?w:"<mark>"+w+"</mark>"}).join(" ")}
+
+/* ===== озвучка ===== */
+var NOVELTY=["Albert","Bad News","Bahh","Bell","Boing","Bubbl","Cello","Wobble","Good News",
+ "Jester","Organ","Superstar","Trinoid","Whisper","Zarvox","Eddy",
+ "Flo","Grandma","Grandpa","Reed","Rocko","Sandy","Shelley",
+ "Альберт","Бах","Плохие новости","Колокольчик","Воббл","Хорошие новости","Шутник","Орган",
+ "Суперзвезда","Триноид","Шёпот","Шепот","Зарвокс","Эдди","Фло",
+ "Бабушка","Дедушка","Рид","Рокко","Сэнди","Шелли","Пузыр","Виолончел","Прыг-скок","Марио"];
+function isNovelty(name){return NOVELTY.some(function(n){return name.indexOf(n)>=0})}
+function normLang(l){return (l||"").toLowerCase().replace(/_/g,"-")}
+var VOICES=[],CUR_VOICE=null;
+function voiceKey(v){return v.name+"|"+normLang(v.lang)}
+function pickSavedVoice(list){
+  var saved=null;try{saved=localStorage.getItem("voiceKey")}catch(e){}
+  if(saved){var m=list.filter(function(v){return voiceKey(v)==saved})[0];if(m)return m}
+  return list.filter(function(v){return v.name.indexOf("Karen")>=0||v.name.indexOf("Карен")>=0})[0]||list[0]}
+function renderVoiceSelect(){
+  var sel=$("voice-select");if(!sel)return;
+  if(!VOICES.length){sel.className="hide";return}
+  sel.className="";
+  sel.innerHTML=VOICES.map(function(v){return '<option value="'+voiceKey(v).replace(/"/g,"&quot;")+'">'+v.name+" ("+v.lang+")</option>"}).join("");
+  sel.value=voiceKey(CUR_VOICE)}
+var RAW_SEEN={};
+function isGoogleVoice(v){return /google/i.test(v.name)}
+function loadVoices(){
+  if(!window.speechSynthesis)return;
+  var got=speechSynthesis.getVoices().filter(function(v){return /^en/i.test(normLang(v.lang))});
+  got.forEach(function(v){RAW_SEEN[voiceKey(v)]=v});
+  var all=Object.keys(RAW_SEEN).map(function(k){return RAW_SEEN[k]});
+  if(!all.length)return;
+  var google=all.filter(isGoogleVoice);
+  if(google.length){VOICES=google}
+  else{var clean=all.filter(function(v){return !isNovelty(v.name)});VOICES=clean.length?clean:all}
+  CUR_VOICE=pickSavedVoice(VOICES);
+  renderVoiceSelect()}
+if(window.speechSynthesis){
+  speechSynthesis.onvoiceschanged=loadVoices;loadVoices();
+  document.addEventListener("DOMContentLoaded",loadVoices);
+  setTimeout(loadVoices,600);setTimeout(loadVoices,2000);
+}
+document.addEventListener("change",function(e){
+  if(e.target&&e.target.id=="voice-select"){
+    var v=VOICES.filter(function(x){return voiceKey(x)==e.target.value})[0];
+    if(v){CUR_VOICE=v;try{localStorage.setItem("voiceKey",voiceKey(v))}catch(err){}}
+  }});
+function say(txt){
+  if(!window.speechSynthesis)return;
+  var u=new SpeechSynthesisUtterance(txt);
+  if(CUR_VOICE){u.voice=CUR_VOICE;u.lang=CUR_VOICE.lang||"en-US"}else u.lang="en-US";
+  u.rate=.95;
+  speechSynthesis.cancel();speechSynthesis.speak(u)}
+window.say=say;
+
+/* ===== 9 ячеек схемы ===== */
+var ALL6='I · you · we · they · he · she';
+var CELLS=[
+ {t:"fu",f:"q",short:'<span class="op">Will</span><span class="pr">'+ALL6+'</span><span class="vb">+ be + место ?</span>',full:'<b>Will</b> + I / you / we / they / he / she + <b>be</b> + место ?',ex:"Will you be at home?"},
+ {t:"fu",f:"a",short:'<span class="pr">'+ALL6+'</span><span class="op">will</span><span class="vb">+ be + место</span>',full:'I / you / we / they / he / she + <b>will</b> + <b>be</b> + место',ex:"You will be at home."},
+ {t:"fu",f:"n",short:'<span class="pr">'+ALL6+'</span><span class="op">won\'t</span><span class="vb">+ be + место</span>',full:"I / you / we / they / he / she + <b>won't</b> + <b>be</b> + место",ex:"You won't be at home."},
+ {t:"pr",f:"q",short:'<span class="op">Am</span><span class="pr">I</span><span class="op">Is</span><span class="pr">he · she</span><span class="op">Are</span><span class="pr">you · we · they</span><span class="vb">+ место ?</span>',full:'<b>Am</b> + I + место ?<br><b>Is</b> + he / she + место ?<br><b>Are</b> + you / we / they + место ?',ex:"Is she at home?<br>Are you at home?"},
+ {t:"pr",f:"a",short:'<span class="pr">I</span><span class="op">am</span><span class="pr">he · she</span><span class="op">is</span><span class="pr">you · we · they</span><span class="op">are</span><span class="vb">+ место</span>',full:'I + <b>am</b> + место<br>he / she + <b>is</b> + место<br>you / we / they + <b>are</b> + место',ex:"She is at home.<br>They are at home."},
+ {t:"pr",f:"n",short:'<span class="pr">I</span><span class="op">am not</span><span class="pr">he · she</span><span class="op">isn\'t</span><span class="pr">you · we · they</span><span class="op">aren\'t</span><span class="vb">+ место</span>',full:"I + <b>am not</b> + место<br>he / she + <b>isn't</b> + место<br>you / we / they + <b>aren't</b> + место",ex:"She isn't at home.",note:"«I am not» почти всегда сокращают: I'm not."},
+ {t:"pa",f:"q",short:'<span class="op">Was</span><span class="pr">I · he · she</span><span class="op">Were</span><span class="pr">you · we · they</span><span class="vb">+ место ?</span>',full:'<b>Was</b> + I / he / she + место ?<br><b>Were</b> + you / we / they + место ?',ex:"Was he at home?"},
+ {t:"pa",f:"a",short:'<span class="pr">I · he · she</span><span class="op">was</span><span class="pr">you · we · they</span><span class="op">were</span><span class="vb">+ место</span>',full:"I / he / she + <b>was</b> + место<br>you / we / they + <b>were</b> + место",ex:"He was at home."},
+ {t:"pa",f:"n",short:'<span class="pr">I · he · she</span><span class="op">wasn\'t</span><span class="pr">you · we · they</span><span class="op">weren\'t</span><span class="vb">+ место</span>',full:"I / he / she + <b>wasn't</b> + место<br>you / we / they + <b>weren't</b> + место",ex:"He wasn't at home."}
+];
+var order=["fu","pr","pa"];
+$("table-holder").innerHTML='<table class="scheme" id="scheme-table"><tr><th></th><th title="Вопрос">?</th><th title="Утверждение">+</th><th title="Отрицание">−</th></tr>'+
+  order.map(function(t){
+    return "<tr><th>"+TSHORT[t]+"</th>"+["q","a","n"].map(function(f){
+      var c=CELLS.filter(function(x){return x.t==t&&x.f==f})[0];
+      return '<td data-cell="'+t+f+'">'+c.short+"</td>"
+    }).join("")+"</tr>"
+  }).join("")+"</table>";
+
+function selectCell(t,f){
+  var c=CELLS.filter(function(x){return x.t==t&&x.f==f})[0];
+  Array.prototype.forEach.call(document.querySelectorAll("#scheme-table td"),function(td){td.classList.remove("active")});
+  var td=document.querySelector('#scheme-table td[data-cell="'+t+f+'"]');
+  if(td)td.classList.add("active");
+  $("cell-detail").innerHTML=
+    '<div class="ftag-row"><span class="ftag">'+TL[t]+'</span><span class="ftag">'+FL[f]+'</span></div>'+
+    '<p class="formula">'+c.full+'</p>'+
+    '<div class="example">'+c.ex+
+      '<button class="audio-btn" onclick="say(\''+c.ex.split("<br>")[0].replace(/'/g,"\\'")+'\')">🔊</button></div>'+
+    (c.note?'<p class="fnote">'+c.note+"</p>":"")+
+    '<button class="selfcheck" onclick="selfCheck(\''+t+'\',\''+f+'\')">Проверить себя →</button>'
+}
+Array.prototype.forEach.call(document.querySelectorAll("#scheme-table td"),function(td){
+  td.onclick=function(){var k=td.getAttribute("data-cell");selectCell(k.slice(0,2),k.slice(2))}});
+selectCell("fu","q");
+
+function selfCheck(t,f){$("tns").value=t;$("frm").value=f;openTrain()}
+
+/* ===== список фраз места (справочный блок на странице урока) ===== */
+$("verbs-list").innerHTML=COMPLEMENTS.map(function(c){
+  return '<div class="vcard"><b>'+c.en+'</b><span class="vru">'+c.ru+"</span></div>"
+}).join("");
+$("show-verbs").onclick=function(){
+  var open=$("verbs-list").className=="";
+  $("verbs-list").className=open?"hide":"";
+  $("show-verbs").textContent=open?"Посмотреть все фразы места из этого урока":"Скрыть список фраз"};
+
+/* ===== навигация ===== */
+function openTrain(){$("view-lesson").className="hide";$("view-train").className="tr-view";
+  document.body.classList.add("no-scroll");window.scrollTo(0,0);pick()}
+$("go-train").onclick=openTrain;
+$("back").onclick=function(){$("view-train").className="tr-view hide";$("view-lesson").className="";
+  document.body.classList.remove("no-scroll");window.scrollTo(0,0)};
+
+/* ===== орлан-маскот ===== */
+var IDLE_POSES=["eagle/2.png","eagle/12.png"],IDLE_RARE=["eagle/11.png"];
+var HAPPY_POSES=["eagle/8.png","eagle/10.png"],SAD_POSES=["eagle/1.png","eagle/5.png","eagle/22.png"];
+var ACTIVITY_ANIMS=[{dir:"eagle/pushups_frames",count:59,fps:12}];
+var EAGLE_SPOTS=[
+  {right:"10px",left:"auto"}
+];
+function pickOne(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function eagleSpot(el,spot){el.style.left=spot.left;el.style.right=spot.right}
+function eagleImg(){return $("eagle-img")}
+var eagleReactTimer=null,eagleActTimer=null,eagleSpotIdx=0;
+
+function eagleResetActivity(){
+  if(eagleActTimer){clearInterval(eagleActTimer);eagleActTimer=null}}
+
+function eagleSettle(){
+  var el=$("eagle");if(!el)return;
+  eagleResetActivity();
+  el.className="";eagleSpot(el,EAGLE_SPOTS[eagleSpotIdx%EAGLE_SPOTS.length]);
+  eagleImg().src=Math.random()<.12?pickOne(IDLE_RARE):pickOne(IDLE_POSES)}
+function eagleNewQuestion(){
+  clearTimeout(eagleReactTimer);
+  eagleSpotIdx=Math.floor(Math.random()*EAGLE_SPOTS.length);
+  eagleSettle()}
+
+function eagleFrameSrc(anim,i){return anim.dir+"/f"+String(i+1).padStart(3,"0")+".png"}
+function eagleStartActivity(anim){
+  var el=$("eagle"),img=eagleImg();
+  if(!el||!img||!anim)return;
+  if(el.className=="react"||el.className=="activity")return;
+  eagleResetActivity();
+  eagleSpotIdx=Math.floor(Math.random()*EAGLE_SPOTS.length);
+  eagleSpot(el,EAGLE_SPOTS[eagleSpotIdx]);
+  el.className="activity";
+  var idx=0;img.src=eagleFrameSrc(anim,idx);
+  eagleActTimer=setInterval(function(){
+    idx=(idx+1)%anim.count;img.src=eagleFrameSrc(anim,idx)},1000/anim.fps);
+  clearTimeout(eagleReactTimer);
+  eagleReactTimer=setTimeout(eagleSettle,7000)}
+
+function eagleReact(good){
+  var el=$("eagle");if(!el)return;
+  eagleResetActivity();
+  eagleSpotIdx=Math.floor(Math.random()*EAGLE_SPOTS.length);
+  eagleSpot(el,EAGLE_SPOTS[eagleSpotIdx]);
+  if(good&&ACTIVITY_ANIMS.length&&Math.random()<.4){eagleStartActivity(pickOne(ACTIVITY_ANIMS));return}
+  eagleImg().src=good?pickOne(HAPPY_POSES):pickOne(SAD_POSES);
+  el.className="";void el.offsetWidth;el.className="react";
+  clearTimeout(eagleReactTimer);
+  eagleReactTimer=setTimeout(eagleSettle,1900)}
+(function preloadActivityFrames(){
+  ACTIVITY_ANIMS.forEach(function(anim){
+    for(var i=0;i<anim.count;i++){var im=new Image();im.src=eagleFrameSrc(anim,i)}})})();
+
+/* ===== движок тренировки ===== */
+var cur=null,ok=0,tot=0,streak=0,done=false,miss={};
+
+function availableTypes(){
+  var frm=$("frm").value,types=["translate","translate","listen"];
+  if(frm=="0"||frm=="q")types.push("dialogue");
+  return types}
+
+var ENG_SUBJ_ALL=["I","you","he","she","we","they"];
+var ENG_SUBJ_Q=["you","he","she","we","they"];
+var bagAll=[],bagQ=[],bagYou=[];
+function shuffled(list){
+  var a=list.slice();
+  for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}
+  return a}
+function drawFrom(bagName,source){
+  var bag=bagName=="all"?bagAll:bagName=="q"?bagQ:bagYou;
+  if(!bag.length)bag=shuffled(source);
+  var x=bag.pop();
+  if(bagName=="all")bagAll=bag;else if(bagName=="q")bagQ=bag;else bagYou=bag;
+  return x}
+function nextPronoun(isQ){
+  var subj=drawFrom(isQ?"q":"all",isQ?ENG_SUBJ_Q:ENG_SUBJ_ALL);
+  if(subj=="I")return "я";
+  if(subj=="he")return "он";
+  if(subj=="she")return "она";
+  if(subj=="we")return "мы";
+  if(subj=="they")return "они";
+  return drawFrom("you",["ты","вы"])}
+
+function pick(){
+  var bad=Object.keys(miss),comp,rep=false;
+  if(bad.length&&Math.random()<.35){var k=bad[Math.floor(Math.random()*bad.length)].split("|");
+    comp=COMPLEMENTS[+k[0]];rep=true}
+  else comp=COMPLEMENTS[Math.floor(Math.random()*COMPLEMENTS.length)];
+  var ci=COMPLEMENTS.indexOf(comp);
+  var type=availableTypes()[Math.floor(Math.random()*availableTypes().length)];
+  var ts=$("tns").value,t=ts!="0"?ts:["fu","pr","pa"][Math.floor(Math.random()*3)];
+  var f;
+  if(type=="dialogue"){f="q"}
+  else{var fs=$("frm").value;f=fs!="0"?fs:["q","a","n"][Math.floor(Math.random()*3)]}
+  var p=nextPronoun(f=="q");
+  var third=(P[p][0]=="he"||P[p][0]=="she");
+  var dir=Math.random()<.5?"ru":"en";
+  cur={comp:comp,ci:ci,p:p,t:t,f:f,type:type,third:third,dir:dir,
+       ru:ruSentBe(p,t,f,comp),en:enSentBe(p,t,f,comp)};
+  if(type=="dialogue")cur.answer=enSentBe(p,t,"a",comp);
+  done=false;
+
+  $("tag-type").textContent=TYPEL[type];
+  $("tag-t").textContent=TL[t];$("tag-f").textContent=FL[type=="dialogue"?"a":f];
+  $("tag-r").className=rep?"extag":"extag hide";
+  $("fb").innerHTML="";$("hint").textContent="";$("err").style.display="none";
+  $("chk").textContent="Проверить";$("ans").value="";$("ans").style.display="";
+
+  var area=$("task-area");
+  if(type=="translate"){
+    area.innerHTML='<p id="task">'+(dir=="ru"?cur.ru:show(cur.en,f))+"</p>";
+    $("ans").placeholder=dir=="ru"?"Your answer":"Перевод на русский"
+  }else if(type=="listen"){
+    area.innerHTML='<div class="audio-only"><button onclick="say(\''+cur.en.replace(/'/g,"\\'")+'\')">🔊 Слушать</button><span class="hint-small">Переведи услышанное на русский</span></div>';
+    $("ans").placeholder="Перевод на русский"
+  }else if(type=="dialogue"){
+    area.innerHTML='<div class="audio-only"><button onclick="say(\''+cur.en.replace(/'/g,"\\'")+'\')">🔊</button><p id="task" style="margin:0">'+cur.en+"</p></div>";
+    $("ans").placeholder="Ответь по-английски (утверждение)"
+  }
+  eagleNewQuestion()
+}
+
+function levenshtein(a,b){
+  var m=a.length,n=b.length,d=[],i,j;
+  for(i=0;i<=m;i++)d[i]=[i];
+  for(j=0;j<=n;j++)d[0][j]=j;
+  for(i=1;i<=m;i++)for(j=1;j<=n;j++)
+    d[i][j]=a[i-1]==b[j-1]?d[i-1][j-1]:1+Math.min(d[i-1][j-1],d[i-1][j],d[i][j-1]);
+  return d[m][n]}
+
+function specificMistakeNote(userTxt,rightTxt){
+  var u=norm(userTxt).replace(/ё/g,"е").split(" ").filter(Boolean);
+  var r=norm(rightTxt).replace(/ё/g,"е").split(" ").filter(Boolean);
+  if(u.length!==r.length)
+    return "В ответе "+(u.length<r.length?"не хватает слова":"лишнее слово")+" по сравнению с верным вариантом.";
+  var diffIdx=[];
+  for(var i=0;i<r.length;i++)if(u[i]!==r[i])diffIdx.push(i);
+  if(!diffIdx.length)return null;
+  if(diffIdx.length===1){
+    var i=diffIdx[0],uw=u[i],rw=r[i],dist=levenshtein(uw,rw);
+    if(i===0)return "Отличается первое слово: у тебя «"+uw+"», нужно «"+rw+"».";
+    if(dist>=Math.min(uw.length,rw.length)*.5)
+      return "Слово «"+uw+"» здесь не подходит — похоже на другое слово или другую форму связки be. Нужная форма — «"+rw+"».";
+    return "Почти верно — отличается только форма слова: «"+uw+"» вместо «"+rw+"»."
+  }
+  return null}
+
+function check(){
+  var userTxt=$("ans").value.trim();
+  if(!userTxt){$("err").style.display="block";return}
+  $("err").style.display="none";
+  function ruMatches(txt){
+    var u=norm(txt).replace(/ё/g,"е"),target=norm(cur.ru).replace(/ё/g,"е");
+    if(u==target)return true;
+    if(cur.p=="ты"||cur.p=="вы"){
+      var altP=cur.p=="ты"?"вы":"ты";
+      if(u==norm(ruSentBe(altP,cur.t,cur.f,cur.comp)).replace(/ё/g,"е"))return true
+    }
+    if(cur.t=="pa"&&(cur.p=="я"||cur.p=="ты")){
+      var altIdx=P[cur.p][2]===0?1:0;
+      if(u==norm(ruSentBe(cur.p,cur.t,cur.f,cur.comp,altIdx)).replace(/ё/g,"е"))return true
+    }
+    return false}
+  var good,right;
+  if(cur.type=="translate"){
+    right=cur.dir=="ru"?show(cur.en,cur.f):cur.ru;
+    good=cur.dir=="ru"?norm(userTxt)==norm(cur.en):ruMatches(userTxt)
+  }else if(cur.type=="listen"){
+    right=cur.ru;good=ruMatches(userTxt)
+  }else{
+    right=cur.answer;good=norm(userTxt)==norm(cur.answer)
+  }
+  tot++;
+  var key=cur.ci+"|"+cur.p,html;
+  if(good){ok++;streak++;delete miss[key];
+    html='<span class="verdict good">Верно.</span> <span class="right">'+right+"</span>"}
+  else{streak=0;miss[key]=1;
+    html='<span class="verdict bad">Не совсем.</span><div class="right">'+
+      diff(right,userTxt)+"</div>"+
+      '<div class="why">'+why(userTxt,right)+"</div>"}
+  $("fb").innerHTML=html;
+  $("score").textContent="Верно: "+ok+" из "+tot+" · подряд: "+streak;
+  done=true;$("chk").textContent="Дальше →";
+  eagleReact(good)}
+
+function schemeHint(){
+  var t=cur.t,f=cur.type=="dialogue"?"a":cur.f,p=cur.p,third=cur.third,subj=P[p][0];
+  if(t=="fu")return f=="q"?"Will + подлежащее + be + место ?":f=="a"?"Подлежащее + will + be + место":"Подлежащее + won't + be + место";
+  if(t=="pr"){
+    var form=subj=="I"?"am":third?"is":"are";
+    return f=="q"?cap(form)+" + подлежащее + место ?"
+      :f=="a"?"Подлежащее + "+form+" + место"
+      :"Подлежащее + "+(subj=="I"?"am not":third?"isn't":"aren't")+" + место"}
+  var formPa=(subj=="I"||third)?"was":"were";
+  return f=="q"?cap(formPa)+" + подлежащее + место ?"
+    :f=="a"?"Подлежащее + "+formPa+" + место"
+    :"Подлежащее + "+(formPa=="was"?"wasn't":"weren't")+" + место"}
+
+function why(userTxt,rightTxt){
+  var t=cur.t,parts=[];
+  var note=userTxt!=null?specificMistakeNote(userTxt,rightTxt):null;
+  if(note)parts.push(note);
+  var rule=schemeHint()+".";
+  if(t=="pr")rule+=" В настоящем времени связка выбирается по подлежащему: I — am, he/she — is, you/we/they — are. По-русски в настоящем времени связки нет вообще.";
+  else if(t=="pa")rule+=" В прошедшем времени только два варианта: was (я/he/she) и were (you/we/they).";
+  else rule+=" В будущем времени после will всегда одна форма — be, независимо от подлежащего.";
+  parts.push(rule);
+  return parts.join(" ")}
+
+function wordHint(){
+  var c=cur.comp;
+  return '<div class="wordhint">'+
+    '<div class="wh-row"><b>'+c.en+"</b><span>— "+c.ru+"</span>"+
+      '<button class="audio-btn" onclick="say(\''+c.en.replace(/'/g,"\\'")+'\')">🔊</button></div>'+
+    "</div>"}
+
+Array.prototype.forEach.call(document.querySelectorAll(".hgrid [data-h]"),function(b){
+  b.onclick=function(){var h=b.getAttribute("data-h");
+    $("hint").innerHTML=h=="word"?wordHint():schemeHint()}});
+
+$("chk").onclick=function(){done?pick():check()};
+$("ans").addEventListener("keydown",function(e){if(e.key=="Enter"){e.preventDefault();done?pick():check()}});
+$("ans").addEventListener("input",function(){$("err").style.display="none"});
+["tns","frm"].forEach(function(i){$(i).onchange=pick});
+
+(function(){
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){$("voice").style.display="none";return}
+  var rec=new SR();rec.interimResults=false;
+  rec.onresult=function(e){$("ans").value=e.results[0][0].transcript;$("err").style.display="none";
+    $("voice").textContent="🎙 Ответить голосом"};
+  rec.onerror=function(){$("voice").textContent="🎙 Ответить голосом"};
+  rec.onend=function(){$("voice").textContent="🎙 Ответить голосом"};
+  $("voice").onclick=function(){
+    var lang="en-US";
+    if(cur){
+      if(cur.type=="translate")lang=cur.dir=="ru"?"en-US":"ru-RU";
+      else if(cur.type=="listen")lang="ru-RU";
+      else lang="en-US"}
+    rec.lang=lang;
+    $("voice").textContent="🎙 Слушаю…";try{rec.start()}catch(e){}}})();
+
+/* ===== голосовой вопрос (тот же движок, что в уроке 1: Web Speech API + Netlify + Gemini) ===== */
+(function(){
+  if(!$("askBtn"))return;
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var modal=$("voiceModal"),orb=$("vcOrb"),statusEl=$("vcStatus"),transcriptEl=$("vcTranscript");
+  var rec=null,askAgainBtn=null,busy=false;
+
+  function setStatus(txt,isErr){
+    statusEl.textContent=txt;
+    statusEl.className="vc-status"+(isErr?" err":"");
+    if(isErr)setOrb("err")}
+
+  function setOrb(mode){orb.className="vc-orb"+(mode?" "+mode:"")}
+
+  function addLine(who,text){
+    if(!text)return;
+    var d=document.createElement("div");d.className="vc-line";
+    d.innerHTML="<b>"+who+":</b> "+String(text).replace(/</g,"&lt;");
+    transcriptEl.appendChild(d);transcriptEl.scrollTop=transcriptEl.scrollHeight;
+    return d}
+
+  function speak(text){
+    try{
+      if(!window.speechSynthesis)return;
+      var u=new SpeechSynthesisUtterance(text);
+      u.lang=/[a-zA-Z]/.test(text)&&!/[а-яА-ЯёЁ]/.test(text)?"en-US":"ru-RU";
+      window.speechSynthesis.speak(u)
+    }catch(e){}}
+
+  function showAskAgain(show){
+    if(askAgainBtn)askAgainBtn.remove();askAgainBtn=null;
+    if(show){
+      askAgainBtn=document.createElement("button");
+      askAgainBtn.type="button";askAgainBtn.className="primary";
+      askAgainBtn.textContent="🎙 Спросить ещё";
+      askAgainBtn.onclick=startListening;
+      $("vcClose").insertAdjacentElement("beforebegin",askAgainBtn)}}
+
+  async function askServer(question){
+    setOrb("");setStatus("Думаю…",false);busy=true;
+    var resp;
+    try{resp=await fetch("/.netlify/functions/ask-question",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({question:question})})}
+    catch(e){
+      setStatus("Не удалось связаться с сервером. Если страница открыта напрямую из файла — вопросы работают только на опубликованном сайте.",true);
+      busy=false;showAskAgain(true);return}
+    var data=null;
+    try{data=await resp.json()}catch(e){}
+    busy=false;
+    if(!resp.ok||!data||!data.answer){
+      setStatus((data&&data.error)||"Сервер не смог ответить — проверь, задан ли GEMINI_API_KEY в настройках Netlify.",true);
+      showAskAgain(true);return}
+    addLine("Ответ",data.answer);
+    setStatus("Готово",false);
+    speak(data.answer);
+    showAskAgain(true)}
+
+  function startListening(){
+    if(!SR){setStatus("Этот браузер не умеет распознавать речь — попробуй Chrome.",true);return}
+    if(busy)return;
+    showAskAgain(false);
+    setOrb("live");setStatus("Слушаю — говори",false);
+    rec=new SR();rec.lang="ru-RU";rec.interimResults=false;
+    rec.onresult=function(e){
+      var txt=e.results[0][0].transcript;
+      setOrb("");addLine("Ты",txt);
+      askServer(txt)};
+    rec.onerror=function(){setOrb("");setStatus("Не расслышала — попробуй ещё раз",true);showAskAgain(true)};
+    rec.onend=function(){if(orb.className.indexOf("live")>-1){setOrb("");}};
+    try{rec.start()}catch(e){setStatus("Не удалось включить микрофон",true);showAskAgain(true)}}
+
+  function cleanup(){
+    if(rec){try{rec.onresult=null;rec.onerror=null;rec.onend=null;rec.stop()}catch(e){}rec=null}
+    if(window.speechSynthesis)try{window.speechSynthesis.cancel()}catch(e){}
+    busy=false;showAskAgain(false)}
+
+  function closeModal(){cleanup();modal.classList.add("hide");document.body.classList.remove("no-scroll")}
+  $("vcClose").onclick=closeModal;
+
+  function openVoiceChat(){
+    transcriptEl.innerHTML="";setOrb("");
+    modal.classList.remove("hide");document.body.classList.add("no-scroll");
+    startListening()}
+
+  $("askBtn").onclick=openVoiceChat})();
+</script>
+</body>
+</html>

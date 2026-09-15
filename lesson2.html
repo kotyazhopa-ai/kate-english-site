@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Разговорный английский — Урок 2</title>
+<style>
+:root{
+  --bg:#FAF9F5; --card:#FFFFFF; --ink:#1C2430; --soft:#6B7280; --line:#E7E5DE;
+  --navy:#2B4570; --navy-d:#1C2E4A; --brick:#A6433D; --brick-d:#7E312C;
+  --good:#2F6F4F; --tint:#F1F0EA; --mark:#FBE7C8; --markink:#6B4A0B;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#14181D; --card:#1B2027; --ink:#EAECEE; --soft:#93999F; --line:#2A3038;
+        --navy:#7FA0CB; --navy-d:#AFC4E2; --brick:#D98F87; --brick-d:#E8ADA6;
+        --good:#6FCBA0; --tint:#20262D; --mark:#3A2F16; --markink:#F0D7A6;}
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);position:relative;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+body::before,body::after{content:"";position:fixed;border-radius:50%;filter:blur(90px);
+  z-index:-1;opacity:.12;pointer-events:none}
+body::before{width:520px;height:520px;background:var(--navy);top:-180px;left:-200px}
+body::after{width:480px;height:480px;background:var(--brick);bottom:-180px;right:-200px}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px;position:relative}
+.hide{display:none}
+body.no-scroll{overflow:hidden}
+#view-lesson{padding-bottom:56px}
+
+.lesson-nav{display:flex;gap:14px;margin:0 0 14px;font-size:12px}
+.lesson-nav a{color:var(--soft);text-decoration:none;font-weight:600}
+.lesson-nav a.cur{color:var(--navy)}
+
+.hero{position:relative;overflow:hidden;padding:44px 0 4px}
+.bigword{position:absolute;right:6px;top:8px;font-size:60px;font-weight:800;color:var(--navy);
+  opacity:.08;line-height:1;letter-spacing:-.01em;white-space:nowrap;z-index:0;pointer-events:none}
+.hero-in{position:relative;z-index:1}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin:0 0 16px;font-weight:600}
+.hero h1{font-size:36px;line-height:1.15;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
+.hero h1 span{color:var(--navy)}
+.hero .lead{font-size:15.5px;line-height:1.65;color:var(--soft);max-width:500px;margin:0 0 28px}
+.start-btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:15px;font-weight:600;
+  padding:14px 22px;border-radius:12px;border:0;background:var(--navy);color:#fff;cursor:pointer}
+.start-btn:active{transform:scale(.98)}
+
+.section-title{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--soft);
+  margin:40px 0 6px;font-weight:700}
+.section-lead{font-size:14.5px;color:var(--soft);line-height:1.6;margin:0 0 16px}
+
+.theory{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 18px;font-size:14.5px;line-height:1.65}
+.theory p{margin:0 0 10px}
+.theory p:last-child{margin-bottom:0}
+.theory b{color:var(--navy-d)}
+.formula-line{background:var(--tint);border-radius:10px;padding:9px 12px;font-size:14.5px;font-weight:600;margin:8px 0}
+.formula-line b{color:var(--brick-d)}
+.ptable{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px}
+.ptable th,.ptable td{border:1px solid var(--line);padding:7px 8px;text-align:left}
+.ptable th{background:var(--tint);color:var(--soft);font-size:11px;text-transform:uppercase;font-weight:700}
+.ptable td b{color:var(--navy-d)}
+.callout{background:var(--mark);color:var(--markink);border-radius:10px;padding:10px 12px;font-size:13.5px;margin:10px 0;line-height:1.55}
+
+table.scheme{width:100%;border-collapse:collapse;table-layout:fixed;background:var(--card);
+  border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:0 0 8px}
+table.scheme th,table.scheme td{border:1px solid var(--line);padding:10px 6px;text-align:center;vertical-align:middle}
+table.scheme th{font-size:11px;color:var(--soft);font-weight:700;background:var(--tint)}
+table.scheme th:first-child{width:56px}
+table.scheme td{font-size:12.5px;line-height:1.3;font-weight:600;color:var(--ink)}
+table.scheme .op{display:block;padding:3px 5px;border-radius:6px;background:rgba(43,69,112,.12);
+  color:var(--navy-d);margin:0 0 3px;font-weight:700}
+table.scheme .pr{display:block;font-size:10px;color:var(--soft);font-weight:500;margin:2px 0;line-height:1.25}
+table.scheme .vb{display:block;color:var(--brick-d);font-weight:600;margin-top:2px}
+.legend{font-size:12px;color:var(--soft);margin:0 0 18px;line-height:1.5}
+
+.detail{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 26px}
+.audio-btn{border:0;background:none;cursor:pointer;font-size:15px;color:var(--brick);padding:0 2px;line-height:1}
+#verbs-list,#nouns-list{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#verbs-list.hide,#nouns-list.hide{display:none}
+.vcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 11px;font-size:13.5px}
+.vcard b{display:block}
+.vcard .vru{color:var(--soft);font-size:12.5px}
+.vcard .vpast{margin-top:4px;display:flex;align-items:center;gap:6px;font-size:12px}
+.wh-tag{font-size:11px;padding:2px 8px;border-radius:20px;background:transparent;border:1.5px solid}
+.wh-tag.bad2{border-color:var(--brick);color:var(--brick)}
+.wh-tag.good2{border-color:var(--good);color:var(--good)}
+@media (max-width:420px){#verbs-list,#nouns-list{grid-template-columns:1fr}}
+.selfcheck{margin-top:12px;font:inherit;font-size:13px;padding:8px 13px;border-radius:9px;
+  border:1px solid var(--line);background:transparent;color:var(--navy);cursor:pointer}
+
+.tr-view{display:flex;flex-direction:column;height:100vh}
+.tr-view.hide{display:none}
+.trainbar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 0 6px;flex-wrap:wrap}
+.back{font-size:14px;color:var(--soft);background:none;border:0;padding:0;cursor:pointer}
+.filters{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.filters select{font:inherit;font-size:12px;padding:6px 7px;border:1px solid var(--line);
+  border-radius:7px;background:var(--card);color:var(--ink);-webkit-appearance:none;appearance:none;max-width:150px}
+.focus{flex:1 1 auto;overflow-y:auto;min-height:0;display:flex;flex-direction:column;justify-content:center;padding:6px 0 24px}
+.stage{position:relative}
+.excard{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 20px}
+#eagle{position:absolute;width:118px;height:118px;z-index:4;pointer-events:none;
+  top:-58px;left:auto;right:10px;
+  transition:left .6s ease,right .6s ease}
+#eagle img{display:block;width:100%;height:100%;object-fit:contain;
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.16))}
+#eagle:not(.fly):not(.react):not(.walking):not(.activity) img{animation:eagleBob 2.6s ease-in-out infinite}
+#eagle.walking img{animation:eagleWalk .32s ease-in-out infinite}
+#eagle.activity{width:122px;height:160px;top:-96px}
+#eagle.fly{width:132px;height:132px}
+#eagle.fly-ltr{animation:eagleFlyLTR 6.5s ease-in-out forwards}
+#eagle.fly-rtl{animation:eagleFlyRTL 6.5s ease-in-out forwards}
+#eagle.fly-ltr img{transform:scaleX(1)}
+#eagle.fly-rtl img{transform:scaleX(-1)}
+#eagle.react{width:136px;height:136px;top:-72px}
+#eagle.react img{animation:eagleReact .5s ease-out}
+@keyframes eagleBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes eagleWalk{0%,100%{transform:rotate(-5deg) translateY(0)}50%{transform:rotate(5deg) translateY(-3px)}}
+@keyframes eagleFlyLTR{0%{left:-20%;right:auto;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:106%;right:auto;opacity:0}}
+@keyframes eagleFlyRTL{0%{right:-20%;left:auto;opacity:0}10%{opacity:1}90%{opacity:1}100%{right:106%;left:auto;opacity:0}}
+@keyframes eagleReact{0%{transform:scale(.82);opacity:0}100%{transform:scale(1);opacity:1}}
+.extags{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.extag{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--tint);color:var(--soft)}
+.extag.type{background:var(--navy);color:#fff}
+#task{font-size:22px;line-height:1.35;font-weight:600;margin:0 0 18px}
+.audio-only{display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.audio-only button{font-size:20px;padding:14px 18px;border-radius:12px;border:1px solid var(--line);
+  background:var(--tint);cursor:pointer;line-height:1}
+.audio-only .hint-small{font-size:13px;color:var(--soft)}
+input#ans{width:100%;font:inherit;font-size:17px;padding:14px;border:1px solid var(--line);
+  border-radius:10px;background:var(--bg);color:var(--ink)}
+input#ans:focus{outline:2px solid var(--navy);outline-offset:1px}
+.tools{display:flex;gap:8px;margin-top:10px}
+.tools button{font:inherit;font-size:13px;padding:9px 12px;border-radius:8px;border:1px solid var(--line);
+  background:transparent;color:var(--soft);cursor:pointer}
+#err{font-size:13px;color:var(--brick);margin-top:8px;display:none}
+.acts{margin-top:16px}
+.acts button{width:100%;font:inherit;font-size:15px;padding:13px;border-radius:10px;border:1px solid var(--line);
+  background:transparent;color:var(--ink);cursor:pointer}
+#chk{background:var(--navy);color:#fff;border-color:var(--navy)}
+#fb{margin-top:14px}
+#fb .verdict{font-weight:700}
+#fb .verdict.good{color:var(--good)}
+#fb .verdict.bad{color:var(--brick)}
+#fb .right{font-size:16px;margin-top:4px;font-weight:600}
+#fb .why{margin-top:8px;font-size:13.5px;color:var(--soft);line-height:1.55}
+mark{background:var(--mark);color:var(--markink);border-radius:3px;padding:0 2px}
+.hints{border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+.hgrid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.hgrid button{font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;border:1px solid var(--line);
+  background:transparent;color:var(--soft);cursor:pointer}
+.wordhint{background:var(--tint);border-radius:10px;padding:10px 12px;font-size:14px}
+.wh-row{display:flex;align-items:center;gap:8px;padding:3px 0;flex-wrap:wrap}
+#hint{font-size:14px;color:var(--soft);line-height:1.55}
+#score{font-size:13px;color:var(--soft);text-align:center;margin-top:16px}
+
+#voiceModal{position:fixed;inset:0;background:rgba(20,24,29,.5);display:flex;
+  align-items:center;justify-content:center;z-index:1000;padding:16px}
+#voiceModal.hide{display:none}
+.vc-card{background:var(--card);border-radius:16px;padding:26px 22px;max-width:380px;width:100%;
+  text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.vc-title{font-size:17px;font-weight:700;margin-bottom:2px}
+.vc-sub{font-size:13px;color:var(--soft);margin-bottom:18px}
+.vc-orb{width:84px;height:84px;border-radius:50%;margin:0 auto 16px;background:var(--navy);
+  opacity:.15;position:relative;transition:opacity .2s}
+.vc-orb::after{content:"🎙";position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;font-size:32px}
+.vc-orb.live{opacity:.9;animation:vcPulse 1.6s ease-in-out infinite}
+.vc-orb.err{background:var(--brick);opacity:.85;animation:none}
+@keyframes vcPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.vc-status{font-size:14px;margin-bottom:14px;min-height:20px;color:var(--soft)}
+.vc-status.err{color:var(--brick)}
+.vc-transcript{max-height:160px;overflow-y:auto;text-align:left;font-size:13.5px;line-height:1.5;
+  background:var(--tint);border-radius:10px;padding:10px 12px;margin-bottom:16px}
+.vc-transcript:empty{display:none}
+.vc-line{margin-bottom:6px}
+.vc-line b{color:var(--navy)}
+.vc-acts{display:flex;gap:10px;justify-content:center}
+.vc-acts button{font:inherit;font-size:14px;padding:9px 18px;border-radius:9px;border:1px solid var(--line);
+  background:transparent;color:var(--ink);cursor:pointer}
+.vc-acts button.primary{background:var(--brick);border-color:var(--brick);color:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div id="view-lesson">
+
+  <div class="hero">
+    <div class="bigword">THEM</div>
+    <div class="hero-in">
+      <p class="lesson-nav"><a href="index.html">Урок 1</a><a href="lesson2.html" class="cur">Урок 2</a><a href="lesson3.html">Урок 3</a></p>
+      <p class="eyebrow">Урок 2 из 16 · Разговорный английский</p>
+      <h1>Кого? Кому? Чьё? <span>Кто?</span> — достраиваем предложение из урока 1</h1>
+      <p class="lead">Схема времён и форм та же самая, что в уроке 1 — три времени, три формы. Теперь в неё добавляется вторая роль: тот, на кого направлено действие (объектное местоимение), чей это предмет (притяжательное слово), и вопросительное слово, которое выходит в начало предложения. Плюс — предлоги to / in / from, без которых половина этих предложений не собирается.</p>
+      <button class="start-btn" id="go-train">Начать тренировку →</button>
+    </div>
+  </div>
+
+  <p class="section-title">1 · Местоимения-дополнения (кого? кому?)</p>
+  <div class="theory">
+    <p>В уроке 1 местоимение всегда было подлежащим: I, you, he… Теперь у предложения появляется вторая роль — тот, на кого действие направлено. По-русски это два разных падежа: «кого» (винительный — вижу <b>его</b>) и «кому» (дательный — звоню <b>ему</b>). По-английски эта разница пропадает: и «его», и «ему» — это одно и то же слово, <b>him</b>. Учить нужно всего один набор форм.</p>
+    <table class="ptable">
+      <tr><th>Кто (подлежащее)</th><th>Кого / кому (дополнение)</th><th>English</th></tr>
+      <tr><td>я</td><td>меня / мне</td><td><b>me</b></td></tr>
+      <tr><td>ты, вы</td><td>тебя/тебе, вас/вам</td><td><b>you</b></td></tr>
+      <tr><td>он</td><td>его / ему</td><td><b>him</b></td></tr>
+      <tr><td>она</td><td>её / ей</td><td><b>her</b></td></tr>
+      <tr><td>мы</td><td>нас / нам</td><td><b>us</b></td></tr>
+      <tr><td>они</td><td>их / им</td><td><b>them</b></td></tr>
+    </table>
+    <p><b>Место в предложении:</b> объектное местоимение всегда идёт после глагола, ближе к концу предложения — и это не меняется даже в вопросе, потому что вопрос по-английски строится вспомогательным глаголом в начале (do/does/did/will), а не перестановкой самого предложения.</p>
+    <div class="formula-line">Подлежащее + do/does/did/will + глагол + <b>объектное местоимение</b> (?)</div>
+    <p class="fnote" style="font-size:12.5px;color:var(--soft);margin-top:-4px">Примеры: <b>I love her.</b> — Я люблю её. &nbsp;·&nbsp; <b>Does he know us?</b> — Он нас знает? &nbsp;·&nbsp; <b>They didn't understand me.</b> — Они меня не поняли.</p>
+  </div>
+
+  <p class="section-title">2 · Притяжательные слова (чьё?)</p>
+  <div class="theory">
+    <p>По-русски притяжательное слово меняется по роду того предмета, которым владеют: <b>мой</b> дом, <b>моя</b> книга, <b>моё</b> слово — три разные формы для одного и того же «я». По-английски всё проще: форма одна и не меняется вообще, ни от рода предмета, ни от падежа — <b>my</b> house, <b>my</b> book, <b>my</b> word.</p>
+    <table class="ptable">
+      <tr><th>Чей? (муж./жен./ср.)</th><th>English</th></tr>
+      <tr><td>мой / моя / моё</td><td><b>my</b></td></tr>
+      <tr><td>твой / твоя / твоё &nbsp;·&nbsp; ваш / ваша / ваше</td><td><b>your</b></td></tr>
+      <tr><td>его (не меняется)</td><td><b>his</b></td></tr>
+      <tr><td>её (не меняется)</td><td><b>her</b></td></tr>
+      <tr><td>наш / наша / наше</td><td><b>our</b></td></tr>
+      <tr><td>их (не меняется)</td><td><b>their</b></td></tr>
+    </table>
+    <p>Интересная деталь: <b>его</b> и <b>её</b> по-русски тоже не меняются по роду предмета — «его дом» и «его книга» одинаково «его». Меняются только мой/твой/наш, потому что у них самих есть окончание, которое подстраивается. В английском не подстраивается вообще ничего.</p>
+    <p><b>Место в предложении:</b> притяжательное слово всегда стоит прямо перед существительным, как отдельное слово-прилепа — never отдельно от него.</p>
+    <div class="formula-line">Подлежащее + have/has/had/will have + <b>притяжательное</b> + существительное (?)</div>
+    <p class="fnote" style="font-size:12.5px;color:var(--soft);margin-top:-4px">Примеры: <b>She has her book.</b> — У неё есть её книга. &nbsp;·&nbsp; <b>Do you have your car?</b> — У тебя есть твоя машина?</p>
+    <p style="font-size:12.5px;color:var(--soft)">В живой речи чаще говорят «I have a book» без притяжательного, или вообще другой конструкцией — «I've got my book» / «There's my book». Здесь через have + притяжательное — потому что глагол have уже знаком по уроку 1, и на нём удобнее всего тренировать именно притяжательные слова.</p>
+  </div>
+
+  <p class="section-title">3 · Вопросительные слова</p>
+  <div class="theory">
+    <table class="ptable">
+      <tr><th>Слово</th><th>English</th><th>Значение</th></tr>
+      <tr><td>что</td><td><b>what</b></td><td>предмет, действие</td></tr>
+      <tr><td>кто</td><td><b>who</b></td><td>подлежащее — «кто действует»</td></tr>
+      <tr><td>где / куда</td><td><b>where</b></td><td>место, направление</td></tr>
+      <tr><td>когда</td><td><b>when</b></td><td>время</td></tr>
+      <tr><td>почему / зачем</td><td><b>why</b></td><td>причина</td></tr>
+      <tr><td>как</td><td><b>how</b></td><td>способ</td></tr>
+    </table>
+    <p><b>Место в предложении:</b> вопросительное слово всегда выходит в самое начало, а дальше — обычный порядок вопроса: <b>Where</b> do you live? <b>When</b> did she call? <b>Why</b> will he go?</p>
+    <div class="callout"><b>Важное исключение — who.</b> Когда «кто» спрашивает про само подлежащее (кто сделал действие), do/does/did НЕ нужны вообще: <b>Who called you?</b>, а не «Who did call you?» — частая ошибка новичков. Проверка простая: если можно ответить именем на месте слова who («<b>Anna</b> called you»), значит who — подлежащее, и do-support не ставится. Если who — дополнение («кого ты видел» → «Who did you see?»), do-support как обычно нужен, потому что подлежащее там — «ты», а who просто вышло вперёд.</div>
+  </div>
+
+  <p class="section-title">4 · Предлоги to / in / from</p>
+  <div class="theory">
+    <p>Дословного соответствия между этими тремя предлогами и русскими предлогами нет — русский язык делает различие, которое английский стирает. Это самая частая причина ошибок, так что стоит понять логику, а не запоминать пары слов.</p>
+    <p><b>to</b> — направление движения, куда-то. По-русски в зависимости от места это разные предлоги:</p>
+    <table class="ptable">
+      <tr><th>Что за место</th><th>Русский предлог</th><th>Пример</th></tr>
+      <tr><td>к человеку / точке (без «захода внутрь»)</td><td>к + дательный</td><td>иду <b>к</b> другу</td></tr>
+      <tr><td>внутрь помещения / города / страны</td><td>в + винительный</td><td>еду <b>в</b> Лондон</td></tr>
+      <tr><td>на открытое место / мероприятие</td><td>на + винительный</td><td>иду <b>на</b> работу</td></tr>
+    </table>
+    <p>По-английски всё это — просто <b>to</b>: go <b>to</b> a friend's, go <b>to</b> London, go <b>to</b> work.</p>
+    <p><b>in</b> — нахождение внутри места (не движение, а место, где кто-то уже есть): в + предложный падеж. <b>in</b> Moscow, <b>in</b> the office, <b>in</b> a new house.</p>
+    <p><b>from</b> — точка отправления, источник. По-русски тоже несколько предлогов:</p>
+    <table class="ptable">
+      <tr><th>Что за источник</th><th>Русский предлог</th><th>Пример</th></tr>
+      <tr><td>от человека</td><td>от + родительный</td><td>письмо <b>от</b> друга</td></tr>
+      <tr><td>изнутри места / города / страны</td><td>из + родительный</td><td>приехала <b>из</b> Москвы</td></tr>
+      <tr><td>с открытого места / мероприятия</td><td>с + родительный</td><td>идёт <b>с</b> работы</td></tr>
+    </table>
+    <p>По-английски снова одно слово на всё: a letter <b>from</b> a friend, <b>from</b> Moscow, <b>from</b> work.</p>
+    <p><b>Место в предложении:</b> предлог + существительное места ставится сразу после глагола (и после объекта, если он есть) — обычно у самого конца предложения, как и по-русски.</p>
+  </div>
+
+  <button class="selfcheck" id="show-verbs">Посмотреть 10 глаголов для местоимений-дополнений</button>
+  <div id="verbs-list" class="hide"></div>
+  <button class="selfcheck" id="show-nouns" style="margin-top:10px">Посмотреть 100 существительных урока</button>
+  <div id="nouns-list" class="hide"></div>
+
+</div>
+
+<div id="view-train" class="tr-view hide">
+  <div class="trainbar">
+    <button class="back" id="back">← к уроку</button>
+    <div class="filters">
+      <select id="topic">
+        <option value="obj">Местоимения-дополнения</option>
+        <option value="poss">Притяжательные + сущ.</option>
+        <option value="qwords">Вопросительные слова</option>
+        <option value="prep">Предлоги to/in/from</option>
+      </select>
+      <select id="tns"><option value="0">Все времена</option><option value="fu">Будущее</option><option value="pr">Настоящее</option><option value="pa">Прошедшее</option></select>
+      <select id="frm"><option value="0">Все типы предложений</option><option value="q">Вопрос</option><option value="a">Утверждение</option><option value="n">Отрицание</option></select>
+      <select id="voice-select" class="hide"></select>
+    </div>
+  </div>
+
+  <div class="focus">
+    <div class="stage">
+    <div id="eagle"><img id="eagle-img" src="eagle/2.png" alt=""/></div>
+    <div class="excard">
+      <div class="extags">
+        <span class="extag type" id="tag-type">—</span>
+        <span class="extag" id="tag-t">—</span>
+        <span class="extag" id="tag-f">—</span>
+        <span class="extag hide" id="tag-r">повтор</span>
+      </div>
+
+      <div id="task-area"></div>
+
+      <input id="ans" placeholder="Твой ответ" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"/>
+
+      <div class="tools">
+        <button id="voice">🎙 Ответить голосом</button>
+      </div>
+
+      <p id="err">Сначала введи ответ</p>
+      <div id="fb"></div>
+      <div class="acts"><button id="chk">Проверить</button></div>
+
+      <div class="hints">
+        <div class="hgrid">
+          <button data-h="word">Слово</button>
+          <button data-h="scheme">Схема предложения</button>
+          <button id="askBtn" type="button">🎙 Задать вопрос</button>
+        </div>
+        <div id="hint"></div>
+      </div>
+    </div>
+    </div>
+    <p id="score">Верно: 0 из 0 · подряд: 0</p>
+  </div>
+</div>
+
+</div>
+
+<div id="voiceModal" class="hide" role="dialog" aria-modal="true">
+  <div class="vc-card">
+    <div class="vc-title">Задать вопрос голосом</div>
+    <div class="vc-sub">Спроси что угодно про английский — ответит голосом</div>
+    <div id="vcOrb" class="vc-orb"></div>
+    <div id="vcStatus" class="vc-status">Подключение…</div>
+    <div id="vcTranscript" class="vc-transcript"></div>
+    <div class="vc-acts">
+      <button id="vcClose" type="button">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== данные урока 2 ===== */
+/* 10 глаголов-достройка к уроку 1: все управляют винительным падежом в русском
+   (любить кого, знать кого, видеть кого...), поэтому объектное местоимение
+   везде — одна и та же винительная форма без исключений. Данные скопированы
+   как есть из V10/V20MORE урока 1, чтобы спряжение было тем же самым. */
+var OBJV=[
+["love","любить","",["люблю","любишь","любите","любим","любит","любят"],["любил","любила","любили"]],
+["know","знать","knew",["знаю","знаешь","знаете","знаем","знает","знают"],["знал","знала","знали"]],
+["see","видеть","saw",["вижу","видишь","видите","видим","видит","видят"],["видел","видела","видели"]],
+["understand","понимать","understood",["понимаю","понимаешь","понимаете","понимаем","понимает","понимают"],["понимал","понимала","понимали"]],
+["remember","помнить","",["помню","помнишь","помните","помним","помнит","помнят"],["помнил","помнила","помнили"]],
+["find","находить","found",["нахожу","находишь","находите","находим","находит","находят"],["находил","находила","находили"]],
+["meet","встречать","met",["встречаю","встречаешь","встречаете","встречаем","встречает","встречают"],["встречал","встречала","встречали"]],
+["teach","учить","taught",["учу","учишь","учите","учим","учит","учат"],["учил","учила","учили"]],
+["thank","благодарить","",["благодарю","благодаришь","благодарите","благодарим","благодарит","благодарят"],["благодарил","благодарила","благодарили"]],
+["ask","спрашивать","",["спрашиваю","спрашиваешь","спрашиваете","спрашиваем","спрашивает","спрашивают"],["спрашивал","спрашивала","спрашивали"]]
+];
+var HAVE=["have","иметь","had",["имею","имеешь","имеете","имеем","имеет","имеют"],["имел","имела","имели"],"has"];
+var P={
+ "я":  ["I",0,1,"буду"],
+ "ты": ["you",1,0,"будешь"],
+ "вы": ["you",2,2,"будете"],
+ "мы": ["we",3,2,"будем"],
+ "он": ["he",4,0,"будет"],
+ "она":["she",4,1,"будет"],
+ "они":["they",5,2,"будут"]
+};
+var ALL=["я","ты","вы","мы","он","она","они"];
+var TL={fu:"Будущее",pr:"Настоящее",pa:"Прошедшее"},FL={q:"Вопрос",a:"Утверждение",n:"Отрицание"};
+var TSHORT={fu:"Буд.",pr:"Наст.",pa:"Прош."};
+var TYPEL={translate:"Перевод",listen:"Аудирование",dialogue:"Ответь на вопрос"};
+
+var OBJ_RU={"я":"меня","ты":"тебя","вы":"вас","мы":"нас","он":"его","она":"её","они":"их"};
+var OBJ_EN={"я":"me","ты":"you","вы":"you","мы":"us","он":"him","она":"her","они":"them"};
+/* винительный падеж притяжательных — существительные в этом банке нарочно
+   только неодушевлённые, поэтому мужской род в винительном не меняется
+   (мой → мой), меняется только женский (моя → мою) */
+var ACC_POSS={
+ "я":{m:"мой",f:"мою",n:"моё"},
+ "ты":{m:"твой",f:"твою",n:"твоё"},
+ "вы":{m:"ваш",f:"вашу",n:"ваше"},
+ "мы":{m:"наш",f:"нашу",n:"наше"},
+ "он":{m:"его",f:"его",n:"его"},
+ "она":{m:"её",f:"её",n:"её"},
+ "они":{m:"их",f:"их",n:"их"}
+};
+var POSS_EN={"я":"my","ты":"your","вы":"your","мы":"our","он":"his","она":"her","они":"their"};
+
+/* ===== 100 существительных — топ-100 по частотному словарю 4flaga.ru
+   (первая тысяча слов английского языка), отфильтровано только на
+   существительные, порядок сохранён строго по их рангу в источнике.
+   g — род (m/f/n) для согласования притяжательного; acc — винительный
+   падеж, если отличается от именительного; skip — существительное
+   одушевлённое (или во мн.ч. без пары) — показывается в списке слов, но
+   не используется в конструкторе предложений "have + притяж. + сущ.",
+   чтобы не тянуть отдельную грамматику одушевлённого винительного падежа.
+   altEn — другое английское слово из этого же банка с тем же русским
+   переводом (в паре word/house встречаются одинаковые переводы —
+   такие слова помечены, чтобы обратный перевод с русского принимал
+   оба варианта). */
+var NOUNS=[
+{en:"time",ru:"время",g:"n",acc:null,skip:false},
+{en:"year",ru:"год",g:"m",acc:null,skip:false},
+{en:"people",ru:"люди",g:"m",acc:null,skip:true},
+{en:"way",ru:"путь",g:"m",acc:null,skip:false},
+{en:"man",ru:"человек",g:"m",acc:null,skip:true,altEn:["person"]},
+{en:"day",ru:"день",g:"m",acc:null,skip:false},
+{en:"thing",ru:"вещь",g:"f",acc:null,skip:false},
+{en:"child",ru:"ребёнок",g:"m",acc:null,skip:true},
+{en:"work",ru:"работа",g:"f",acc:"работу",skip:false,altEn:["job"]},
+{en:"government",ru:"правительство",g:"n",acc:null,skip:false},
+{en:"part",ru:"часть",g:"f",acc:null,skip:false},
+{en:"life",ru:"жизнь",g:"f",acc:null,skip:false},
+{en:"case",ru:"случай",g:"m",acc:null,skip:false},
+{en:"woman",ru:"женщина",g:"f",acc:"женщину",skip:true},
+{en:"group",ru:"группа",g:"f",acc:"группу",skip:false},
+{en:"number",ru:"число",g:"n",acc:null,skip:false},
+{en:"world",ru:"мир",g:"m",acc:null,skip:false},
+{en:"area",ru:"территория",g:"f",acc:"территорию",skip:false},
+{en:"problem",ru:"проблема",g:"f",acc:"проблему",skip:false},
+{en:"service",ru:"служба",g:"f",acc:"службу",skip:false},
+{en:"hand",ru:"рука",g:"f",acc:"руку",skip:false},
+{en:"party",ru:"партия",g:"f",acc:"партию",skip:false},
+{en:"school",ru:"школа",g:"f",acc:"школу",skip:false},
+{en:"place",ru:"место",g:"n",acc:null,skip:false},
+{en:"house",ru:"дом",g:"m",acc:null,skip:false,altEn:["home"]},
+{en:"country",ru:"страна",g:"f",acc:"страну",skip:false},
+{en:"week",ru:"неделя",g:"f",acc:"неделю",skip:false},
+{en:"member",ru:"член",g:"m",acc:null,skip:true},
+{en:"word",ru:"слово",g:"n",acc:null,skip:false},
+{en:"family",ru:"семья",g:"f",acc:"семью",skip:false},
+{en:"fact",ru:"факт",g:"m",acc:null,skip:false},
+{en:"state",ru:"государство",g:"n",acc:null,skip:false},
+{en:"home",ru:"дом",g:"m",acc:null,skip:false,altEn:["house"]},
+{en:"month",ru:"месяц",g:"m",acc:null,skip:false},
+{en:"side",ru:"сторона",g:"f",acc:"сторону",skip:false},
+{en:"night",ru:"ночь",g:"f",acc:null,skip:false},
+{en:"eye",ru:"глаз",g:"m",acc:null,skip:false},
+{en:"question",ru:"вопрос",g:"m",acc:null,skip:false,altEn:["issue"]},
+{en:"power",ru:"власть",g:"f",acc:null,skip:false,altEn:["authority"]},
+{en:"money",ru:"деньги",g:"m",acc:null,skip:true},
+{en:"change",ru:"изменение",g:"n",acc:null,skip:false},
+{en:"interest",ru:"интерес",g:"m",acc:null,skip:false},
+{en:"order",ru:"порядок",g:"m",acc:null,skip:false},
+{en:"book",ru:"книга",g:"f",acc:"книгу",skip:false},
+{en:"room",ru:"комната",g:"f",acc:"комнату",skip:false},
+{en:"water",ru:"вода",g:"f",acc:"воду",skip:false},
+{en:"form",ru:"форма",g:"f",acc:"форму",skip:false},
+{en:"car",ru:"автомобиль",g:"m",acc:null,skip:false},
+{en:"policy",ru:"политика",g:"f",acc:"политику",skip:false},
+{en:"line",ru:"линия",g:"f",acc:"линию",skip:false},
+{en:"effect",ru:"эффект",g:"m",acc:null,skip:false},
+{en:"idea",ru:"идея",g:"f",acc:"идею",skip:false},
+{en:"study",ru:"учёба",g:"f",acc:"учёбу",skip:false},
+{en:"job",ru:"работа",g:"f",acc:"работу",skip:false,altEn:["work"]},
+{en:"name",ru:"имя",g:"n",acc:null,skip:false},
+{en:"result",ru:"результат",g:"m",acc:null,skip:false},
+{en:"body",ru:"тело",g:"n",acc:null,skip:false},
+{en:"friend",ru:"друг",g:"m",acc:null,skip:true},
+{en:"authority",ru:"власть",g:"f",acc:null,skip:false,altEn:["power"]},
+{en:"view",ru:"взгляд",g:"m",acc:null,skip:false},
+{en:"report",ru:"доклад",g:"m",acc:null,skip:false},
+{en:"face",ru:"лицо",g:"n",acc:null,skip:false},
+{en:"hour",ru:"час",g:"m",acc:null,skip:false},
+{en:"rate",ru:"ставка",g:"f",acc:"ставку",skip:false},
+{en:"law",ru:"закон",g:"m",acc:null,skip:false},
+{en:"door",ru:"дверь",g:"f",acc:null,skip:false},
+{en:"company",ru:"компания",g:"f",acc:"компанию",skip:false},
+{en:"court",ru:"суд",g:"m",acc:null,skip:false},
+{en:"office",ru:"офис",g:"m",acc:null,skip:false},
+{en:"war",ru:"война",g:"f",acc:"войну",skip:false},
+{en:"reason",ru:"причина",g:"f",acc:"причину",skip:false},
+{en:"subject",ru:"предмет",g:"m",acc:null,skip:false},
+{en:"person",ru:"человек",g:"m",acc:null,skip:true,altEn:["man"]},
+{en:"term",ru:"срок",g:"m",acc:null,skip:false},
+{en:"society",ru:"общество",g:"n",acc:null,skip:false},
+{en:"process",ru:"процесс",g:"m",acc:null,skip:false},
+{en:"mother",ru:"мать",g:"f",acc:null,skip:true},
+{en:"voice",ru:"голос",g:"m",acc:null,skip:false},
+{en:"price",ru:"цена",g:"f",acc:"цену",skip:false},
+{en:"action",ru:"действие",g:"n",acc:null,skip:false},
+{en:"issue",ru:"вопрос",g:"m",acc:null,skip:false,altEn:["question"]},
+{en:"position",ru:"позиция",g:"f",acc:"позицию",skip:false},
+{en:"community",ru:"община",g:"f",acc:"общину",skip:false},
+{en:"figure",ru:"цифра",g:"f",acc:"цифру",skip:false},
+{en:"type",ru:"тип",g:"m",acc:null,skip:false},
+{en:"education",ru:"образование",g:"n",acc:null,skip:false},
+{en:"minute",ru:"минута",g:"f",acc:"минуту",skip:false},
+{en:"moment",ru:"момент",g:"m",acc:null,skip:false},
+{en:"girl",ru:"девочка",g:"f",acc:null,skip:true},
+{en:"age",ru:"возраст",g:"m",acc:null,skip:false},
+{en:"centre",ru:"центр",g:"m",acc:null,skip:false},
+{en:"control",ru:"контроль",g:"m",acc:null,skip:false},
+{en:"health",ru:"здоровье",g:"n",acc:null,skip:false},
+{en:"wound",ru:"рана",g:"f",acc:"рану",skip:false},
+{en:"class",ru:"класс",g:"m",acc:null,skip:false},
+{en:"industry",ru:"промышленность",g:"f",acc:null,skip:false},
+{en:"return",ru:"возвращение",g:"n",acc:null,skip:false},
+{en:"force",ru:"сила",g:"f",acc:"силу",skip:false},
+{en:"condition",ru:"условие",g:"n",acc:null,skip:false},
+{en:"paper",ru:"бумага",g:"f",acc:"бумагу",skip:false}
+];
+
+/* ===== банк вопросительных слов — готовые пары предложений, естественные
+   по смыслу (генерировать их из общего движка урока 1 давало бы много
+   бессмысленных сочетаний — здесь вручную подобранные примеры) ===== */
+var QBANK=[
+{q:"what",qru:"Что",ru:"Что ты хочешь?",en:"What do you want?"},
+{q:"what",qru:"Что",ru:"Что она сказала?",en:"What did she say?"},
+{q:"what",qru:"Что",ru:"Что вы будете делать?",en:"What will you do?"},
+{q:"what",qru:"Что",ru:"Что он читает?",en:"What does he read?"},
+{q:"who",qru:"Кто",ru:"Кто тебя любит?",en:"Who loves you?"},
+{q:"who",qru:"Кто",ru:"Кто тебе звонил?",en:"Who called you?"},
+{q:"who",qru:"Кто",ru:"Кто нам поможет?",en:"Who will help us?"},
+{q:"who",qru:"Кто",ru:"Кто это сказал?",en:"Who said that?"},
+{q:"where",qru:"Где / куда",ru:"Где ты живёшь?",en:"Where do you live?"},
+{q:"where",qru:"Где / куда",ru:"Где они работают?",en:"Where do they work?"},
+{q:"where",qru:"Где / куда",ru:"Куда ты ходил вчера?",en:"Where did you go yesterday?"},
+{q:"when",qru:"Когда",ru:"Когда ты придёшь?",en:"When will you come?"},
+{q:"when",qru:"Когда",ru:"Когда вы начинаете?",en:"When do you start?"},
+{q:"when",qru:"Когда",ru:"Когда он приходит?",en:"When does he come?"},
+{q:"why",qru:"Почему / зачем",ru:"Почему ты не отвечаешь?",en:"Why don't you answer?"},
+{q:"why",qru:"Почему / зачем",ru:"Почему он это делает?",en:"Why does he do that?"},
+{q:"why",qru:"Почему / зачем",ru:"Почему вы согласились?",en:"Why did you agree?"},
+{q:"how",qru:"Как",ru:"Как ты это понял?",en:"How did you understand that?"},
+{q:"how",qru:"Как",ru:"Как они это делают?",en:"How do they do it?"},
+{q:"how",qru:"Как",ru:"Как вы узнаете?",en:"How will you know?"}
+];
+
+/* ===== банк предлогов to/in/from — тоже готовые примеры, показывающие
+   разные русские предлоги за одним и тем же английским словом ===== */
+var PBANK=[
+{prep:"to",ru:"Я иду в школу.",en:"I go to school."},
+{prep:"to",ru:"Она идёт на работу.",en:"She goes to work."},
+{prep:"to",ru:"Мы поедем в Лондон.",en:"We will go to London."},
+{prep:"to",ru:"Он пошёл к другу.",en:"He went to his friend's."},
+{prep:"in",ru:"Я живу в Москве.",en:"I live in Moscow."},
+{prep:"in",ru:"Он работает в офисе.",en:"He works in the office."},
+{prep:"in",ru:"Они жили в Лондоне.",en:"They lived in London."},
+{prep:"in",ru:"Мы будем жить в новом доме.",en:"We will live in a new house."},
+{prep:"from",ru:"Она приехала из Москвы.",en:"She came from Moscow."},
+{prep:"from",ru:"Я получил письмо от друга.",en:"I got a letter from a friend."},
+{prep:"from",ru:"Он приходит с работы поздно.",en:"He comes from work late."},
+{prep:"from",ru:"Мы вернёмся из отпуска.",en:"We will return from vacation."}
+];
+
+function $(i){return document.getElementById(i)}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+function s3(v){if(/[^aeiou]y$/.test(v))return v.slice(0,-1)+"ies";
+  if(/(o|ch|sh|s|x|z)$/.test(v))return v+"es";return v+"s"}
+function reg(v){if(/e$/.test(v))return v+"d";if(/[^aeiou]y$/.test(v))return v.slice(0,-1)+"ied";
+  if(/^[^aeiou]*[aeiou][^aeiouwxy]$/.test(v))return v+v.slice(-1)+"ed";
+  return v+"ed"}
+function pastForm(v){return v[2]||reg(v[0])}
+function norm(s){return s.toLowerCase().replace(/[’]/g,"'").replace(/won't/g,"will not")
+  .replace(/n't/g," not").replace(/'m/g," am").replace(/'re/g," are").replace(/'ll/g," will")
+  .replace(/'s/g," is").replace(/[.,!?;:]/g,"").replace(/\s+/g," ").trim()}
+function show(a,f){return cap(a)+(f=="q"?"?":".")}
+
+/* ===== строители предложений (совпадают по внутренней логике с ruSent/enSent
+   урока 1), только на выходе core, к которому потом приклеивается объект —
+   местоимение, или притяжательное+существительное ===== */
+function ruBuild(v,p,t,f,objRu,pastIdxOverride){
+  var d=P[p],dat=v[6]=="dat",subj=dat?DAT_[p]:p,core;
+  if(t=="pr")core=v[3][d[1]];
+  else if(t=="pa")core=v[4][pastIdxOverride!=null?pastIdxOverride:d[2]];
+  else core=(dat?"будет":d[3])+" "+v[1].split(" (")[0];
+  if(f=="n")core="не "+core;
+  var full=subj+" "+core+(objRu?" "+objRu:"");
+  return cap(full)+(f=="q"?"?":".")}
+var DAT_={};
+
+function enSent(v,p,t,f){
+  var s=P[p][0],third=(s=="he"||s=="she"),b=v[0];
+  if(t=="fu")return f=="a"?s+" will "+b:f=="n"?s+" will not "+b:"Will "+s+" "+b;
+  if(t=="pr"){var thirdForm=v[5]||s3(b);
+    return f=="a"?s+" "+(third?thirdForm:b)
+      :f=="n"?s+" "+(third?"does":"do")+" not "+b
+      :(third?"Does ":"Do ")+s+" "+b}
+  return f=="a"?s+" "+pastForm(v):f=="n"?s+" did not "+b:"Did "+s+" "+b}
+
+function diff(right,user){
+  var A=right.split(" "),B=norm(user).split(" "),n=A.length,m=B.length,d=[],i,j;
+  for(i=0;i<=n;i++){d[i]=[];for(j=0;j<=m;j++)d[i][j]=0}
+  for(i=1;i<=n;i++)for(j=1;j<=m;j++)
+    d[i][j]=norm(A[i-1])==B[j-1]?d[i-1][j-1]+1:Math.max(d[i-1][j],d[i][j-1]);
+  var keep={};i=n;j=m;
+  while(i>0&&j>0){
+    if(norm(A[i-1])==B[j-1]){keep[i-1]=1;i--;j--}
+    else if(d[i-1][j]>=d[i][j-1])i--;else j--}
+  return A.map(function(w,k){return keep[k]?w:"<mark>"+w+"</mark>"}).join(" ")}
+
+/* ===== озвучка ===== */
+var NOVELTY=["Albert","Bad News","Bahh","Bell","Boing","Bubbl","Cello","Wobble","Good News",
+ "Jester","Organ","Superstar","Trinoid","Whisper","Zarvox","Eddy",
+ "Flo","Grandma","Grandpa","Reed","Rocko","Sandy","Shelley",
+ "Альберт","Бах","Плохие новости","Колокольчик","Воббл","Хорошие новости","Шутник","Орган",
+ "Суперзвезда","Триноид","Шёпот","Шепот","Зарвокс","Эдди","Фло",
+ "Бабушка","Дедушка","Рид","Рокко","Сэнди","Шелли","Пузыр","Виолончел","Прыг-скок","Марио"];
+function isNovelty(name){return NOVELTY.some(function(n){return name.indexOf(n)>=0})}
+function normLang(l){return (l||"").toLowerCase().replace(/_/g,"-")}
+var VOICES=[],CUR_VOICE=null;
+function voiceKey(v){return v.name+"|"+normLang(v.lang)}
+function pickSavedVoice(list){
+  var saved=null;try{saved=localStorage.getItem("voiceKey")}catch(e){}
+  if(saved){var m=list.filter(function(v){return voiceKey(v)==saved})[0];if(m)return m}
+  return list.filter(function(v){return v.name.indexOf("Karen")>=0||v.name.indexOf("Карен")>=0})[0]||list[0]}
+function renderVoiceSelect(){
+  var sel=$("voice-select");if(!sel)return;
+  if(!VOICES.length){sel.className="hide";return}
+  sel.className="";
+  sel.innerHTML=VOICES.map(function(v){return '<option value="'+voiceKey(v).replace(/"/g,"&quot;")+'">'+v.name+" ("+v.lang+")</option>"}).join("");
+  sel.value=voiceKey(CUR_VOICE)}
+var RAW_SEEN={};
+function isGoogleVoice(v){return /google/i.test(v.name)}
+function loadVoices(){
+  if(!window.speechSynthesis)return;
+  var got=speechSynthesis.getVoices().filter(function(v){return /^en/i.test(normLang(v.lang))});
+  got.forEach(function(v){RAW_SEEN[voiceKey(v)]=v});
+  var all=Object.keys(RAW_SEEN).map(function(k){return RAW_SEEN[k]});
+  if(!all.length)return;
+  var google=all.filter(isGoogleVoice);
+  if(google.length){VOICES=google}
+  else{var clean=all.filter(function(v){return !isNovelty(v.name)});VOICES=clean.length?clean:all}
+  CUR_VOICE=pickSavedVoice(VOICES);
+  renderVoiceSelect()}
+if(window.speechSynthesis){
+  speechSynthesis.onvoiceschanged=loadVoices;loadVoices();
+  document.addEventListener("DOMContentLoaded",loadVoices);
+  setTimeout(loadVoices,600);setTimeout(loadVoices,2000);
+}
+document.addEventListener("change",function(e){
+  if(e.target&&e.target.id=="voice-select"){
+    var v=VOICES.filter(function(x){return voiceKey(x)==e.target.value})[0];
+    if(v){CUR_VOICE=v;try{localStorage.setItem("voiceKey",voiceKey(v))}catch(err){}}
+  }});
+function say(txt){
+  if(!window.speechSynthesis)return;
+  var u=new SpeechSynthesisUtterance(txt);
+  if(CUR_VOICE){u.voice=CUR_VOICE;u.lang=CUR_VOICE.lang||"en-US"}else u.lang="en-US";
+  u.rate=.95;
+  speechSynthesis.cancel();speechSynthesis.speak(u)}
+window.say=say;
+
+/* ===== справочные списки на странице урока ===== */
+$("verbs-list").innerHTML=OBJV.map(function(v){
+  var irregular=!!v[2],past=pastForm(v);
+  return '<div class="vcard"><b>'+v[0]+'</b><span class="vru">'+v[1]+"</span>"+
+    '<div class="vpast"><span>'+past+"</span>"+
+    '<span class="wh-tag '+(irregular?"bad2":"good2")+'">'+(irregular?"неправильная":"+ed")+"</span></div></div>"
+}).join("");
+$("show-verbs").onclick=function(){
+  var open=$("verbs-list").className=="";
+  $("verbs-list").className=open?"hide":"";
+  $("show-verbs").textContent=open?"Посмотреть 10 глаголов для местоимений-дополнений":"Скрыть список глаголов"};
+
+$("nouns-list").innerHTML=NOUNS.map(function(n){
+  return '<div class="vcard"><b>'+n.en+'</b><span class="vru">'+n.ru+"</span></div>"
+}).join("");
+$("show-nouns").onclick=function(){
+  var open=$("nouns-list").className=="";
+  $("nouns-list").className=open?"hide":"";
+  $("show-nouns").textContent=open?"Посмотреть 100 существительных урока":"Скрыть список существительных"};
+
+/* ===== навигация ===== */
+function openTrain(){$("view-lesson").className="hide";$("view-train").className="tr-view";
+  document.body.classList.add("no-scroll");window.scrollTo(0,0);pick()}
+$("go-train").onclick=openTrain;
+$("back").onclick=function(){$("view-train").className="tr-view hide";$("view-lesson").className="";
+  document.body.classList.remove("no-scroll");window.scrollTo(0,0)};
+
+/* ===== орлан-маскот ===== */
+var IDLE_POSES=["eagle/2.png","eagle/12.png"],IDLE_RARE=["eagle/11.png"];
+var HAPPY_POSES=["eagle/8.png","eagle/10.png"],SAD_POSES=["eagle/1.png","eagle/5.png","eagle/22.png"];
+var ACTIVITY_ANIMS=[{dir:"eagle/pushups_frames",count:59,fps:12}];
+var EAGLE_SPOTS=[{right:"10px",left:"auto"}];
+function pickOne(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function eagleSpot(el,spot){el.style.left=spot.left;el.style.right=spot.right}
+function eagleImg(){return $("eagle-img")}
+var eagleReactTimer=null,eagleActTimer=null,eagleSpotIdx=0;
+function eagleResetActivity(){if(eagleActTimer){clearInterval(eagleActTimer);eagleActTimer=null}}
+function eagleSettle(){
+  var el=$("eagle");if(!el)return;
+  eagleResetActivity();
+  el.className="";eagleSpot(el,EAGLE_SPOTS[eagleSpotIdx%EAGLE_SPOTS.length]);
+  eagleImg().src=Math.random()<.12?pickOne(IDLE_RARE):pickOne(IDLE_POSES)}
+function eagleNewQuestion(){
+  clearTimeout(eagleReactTimer);
+  eagleSpotIdx=Math.floor(Math.random()*EAGLE_SPOTS.length);
+  eagleSettle()}
+function eagleFrameSrc(anim,i){return anim.dir+"/f"+String(i+1).padStart(3,"0")+".png"}
+function eagleStartActivity(anim){
+  var el=$("eagle"),img=eagleImg();
+  if(!el||!img||!anim)return;
+  if(el.className=="react"||el.className=="activity")return;
+  eagleResetActivity();
+  eagleSpotIdx=Math.floor(Math.random()*EAGLE_SPOTS.length);
+  eagleSpot(el,EAGLE_SPOTS[eagleSpotIdx]);
+  el.className="activity";
+  var idx=0;img.src=eagleFrameSrc(anim,idx);
+  eagleActTimer=setInterval(function(){
+    idx=(idx+1)%anim.count;img.src=eagleFrameSrc(anim,idx)},1000/anim.fps);
+  clearTimeout(eagleReactTimer);
+  eagleReactTimer=setTimeout(eagleSettle,7000)}
+function eagleReact(good){
+  var el=$("eagle");if(!el)return;
+  eagleResetActivity();
+  eagleSpotIdx=Math.floor(Math.random()*EAGLE_SPOTS.length);
+  eagleSpot(el,EAGLE_SPOTS[eagleSpotIdx]);
+  if(good&&ACTIVITY_ANIMS.length&&Math.random()<.4){eagleStartActivity(pickOne(ACTIVITY_ANIMS));return}
+  eagleImg().src=good?pickOne(HAPPY_POSES):pickOne(SAD_POSES);
+  el.className="";void el.offsetWidth;el.className="react";
+  clearTimeout(eagleReactTimer);
+  eagleReactTimer=setTimeout(eagleSettle,1900)}
+(function preloadActivityFrames(){
+  ACTIVITY_ANIMS.forEach(function(anim){
+    for(var i=0;i<anim.count;i++){var im=new Image();im.src=eagleFrameSrc(anim,i)}})})();
+
+/* ===== движок тренировки ===== */
+var cur=null,ok=0,tot=0,streak=0,done=false,miss={};
+
+function availableTypes(){
+  var frm=$("frm").value,types=["translate","translate","listen"];
+  if(frm=="0"||frm=="q")types.push("dialogue");
+  return types}
+
+var ENG_SUBJ_ALL=["I","you","he","she","we","they"];
+var ENG_SUBJ_Q=["you","he","she","we","they"];
+var bagAll=[],bagQ=[],bagYou=[];
+function shuffled(list){
+  var a=list.slice();
+  for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}
+  return a}
+function drawFrom(bagName,source){
+  var bag=bagName=="all"?bagAll:bagName=="q"?bagQ:bagYou;
+  if(!bag.length)bag=shuffled(source);
+  var x=bag.pop();
+  if(bagName=="all")bagAll=bag;else if(bagName=="q")bagQ=bag;else bagYou=bag;
+  return x}
+function nextPronoun(isQ){
+  var subj=drawFrom(isQ?"q":"all",isQ?ENG_SUBJ_Q:ENG_SUBJ_ALL);
+  if(subj=="I")return "я";
+  if(subj=="he")return "он";
+  if(subj=="she")return "она";
+  if(subj=="we")return "мы";
+  if(subj=="they")return "они";
+  return drawFrom("you",["ты","вы"])}
+
+function updateFilterVisibility(){
+  var topic=$("topic").value,show=(topic=="obj"||topic=="poss");
+  $("tns").style.display=show?"":"none";
+  $("frm").style.display=show?"":"none"}
+
+function pick(){
+  var topic=$("topic").value;
+  if(topic=="obj")pickObj();
+  else if(topic=="poss")pickPoss();
+  else if(topic=="qwords")pickBank(QBANK,"qwords");
+  else pickBank(PBANK,"prep")}
+
+function pickObj(){
+  var bad=Object.keys(miss).filter(function(k){return k.indexOf("obj|")==0}),v,rep=false;
+  if(bad.length&&Math.random()<.35){var k=bad[Math.floor(Math.random()*bad.length)].split("|");v=OBJV[+k[1]];rep=true}
+  else v=OBJV[Math.floor(Math.random()*OBJV.length)];
+  var vi=OBJV.indexOf(v);
+  var type=availableTypes()[Math.floor(Math.random()*availableTypes().length)];
+  var ts=$("tns").value,t=ts!="0"?ts:["fu","pr","pa"][Math.floor(Math.random()*3)];
+  var f;
+  if(type=="dialogue"){f="q"}else{var fs=$("frm").value;f=fs!="0"?fs:["q","a","n"][Math.floor(Math.random()*3)]}
+  var p=nextPronoun(f=="q");
+  var others=ALL.filter(function(x){return x!==p});
+  var obj=others[Math.floor(Math.random()*others.length)];
+  var third=(P[p][0]=="he"||P[p][0]=="she");
+  var dir=Math.random()<.5?"ru":"en";
+  cur={topic:"obj",v:v,vi:vi,p:p,obj:obj,t:t,f:f,type:type,third:third,dir:dir,
+       ru:ruBuild(v,p,t,f,OBJ_RU[obj]),en:enSent(v,p,t,f)+" "+OBJ_EN[obj]};
+  if(type=="dialogue")cur.answer=enSent(v,p,t,"a")+" "+OBJ_EN[obj];
+  renderCard(type,t,f,rep)}
+
+function pickPoss(){
+  var bad=Object.keys(miss).filter(function(k){return k.indexOf("poss|")==0});
+  var pool=NOUNS.filter(function(n){return !n.skip});
+  var noun,rep=false;
+  if(bad.length&&Math.random()<.35){var k=bad[Math.floor(Math.random()*bad.length)].split("|");noun=NOUNS[+k[1]];rep=true}
+  else noun=pool[Math.floor(Math.random()*pool.length)];
+  var ni=NOUNS.indexOf(noun);
+  var type=availableTypes()[Math.floor(Math.random()*availableTypes().length)];
+  var ts=$("tns").value,t=ts!="0"?ts:["fu","pr","pa"][Math.floor(Math.random()*3)];
+  var f;
+  if(type=="dialogue"){f="q"}else{var fs=$("frm").value;f=fs!="0"?fs:["q","a","n"][Math.floor(Math.random()*3)]}
+  var p=nextPronoun(f=="q");
+  var third=(P[p][0]=="he"||P[p][0]=="she");
+  var dir=Math.random()<.5?"ru":"en";
+  var possRu=ACC_POSS[p][noun.g],nounRu=noun.acc||noun.ru;
+  cur={topic:"poss",noun:noun,ni:ni,p:p,t:t,f:f,type:type,third:third,dir:dir,
+       ru:ruBuild(HAVE,p,t,f,possRu+" "+nounRu),en:enSent(HAVE,p,t,f)+" "+POSS_EN[p]+" "+noun.en};
+  if(type=="dialogue")cur.answer=enSent(HAVE,p,t,"a")+" "+POSS_EN[p]+" "+noun.en;
+  renderCard(type,t,f,rep)}
+
+function renderCard(type,t,f,rep){
+  done=false;
+  $("tag-type").textContent=TYPEL[type];
+  $("tag-t").textContent=TL[t];$("tag-f").textContent=FL[type=="dialogue"?"a":f];
+  $("tag-r").className=rep?"extag":"extag hide";
+  $("fb").innerHTML="";$("hint").textContent="";$("err").style.display="none";
+  $("chk").textContent="Проверить";$("ans").value="";$("ans").style.display="";
+  var area=$("task-area");
+  if(type=="translate"){
+    area.innerHTML='<p id="task">'+(cur.dir=="ru"?cur.ru:show(cur.en,f))+"</p>";
+    $("ans").placeholder=cur.dir=="ru"?"Your answer":"Перевод на русский"
+  }else if(type=="listen"){
+    area.innerHTML='<div class="audio-only"><button onclick="say(\''+cur.en.replace(/'/g,"\\'")+'\')">🔊 Слушать</button><span class="hint-small">Переведи услышанное на русский</span></div>';
+    $("ans").placeholder="Перевод на русский"
+  }else if(type=="dialogue"){
+    area.innerHTML='<div class="audio-only"><button onclick="say(\''+cur.en.replace(/'/g,"\\'")+'\')">🔊</button><p id="task" style="margin:0">'+cur.en+"</p></div>";
+    $("ans").placeholder="Ответь по-английски (утверждение)"
+  }
+  eagleNewQuestion()}
+
+function pickBank(bank,topicName){
+  var bad=Object.keys(miss).filter(function(k){return k.indexOf(topicName+"|")==0});
+  var item,rep=false;
+  if(bad.length&&Math.random()<.35){var k=bad[Math.floor(Math.random()*bad.length)].split("|");item=bank[+k[1]];rep=true}
+  else item=bank[Math.floor(Math.random()*bank.length)];
+  var ii=bank.indexOf(item);
+  var type=Math.random()<.5?"translate":"listen";
+  var dir=Math.random()<.5?"ru":"en";
+  done=false;
+  cur={topic:topicName,item:item,ii:ii,type:type,dir:dir,ru:item.ru,en:item.en,f:"a"};
+  $("tag-type").textContent=TYPEL[type];
+  $("tag-t").textContent=topicName=="qwords"?item.qru:item.prep;
+  $("tag-f").textContent="Пример";
+  $("tag-r").className=rep?"extag":"extag hide";
+  $("fb").innerHTML="";$("hint").textContent="";$("err").style.display="none";
+  $("chk").textContent="Проверить";$("ans").value="";$("ans").style.display="";
+  var area=$("task-area");
+  if(type=="translate"){
+    area.innerHTML='<p id="task">'+(dir=="ru"?cur.ru:cur.en)+"</p>";
+    $("ans").placeholder=dir=="ru"?"Your answer":"Перевод на русский"
+  }else{
+    area.innerHTML='<div class="audio-only"><button onclick="say(\''+cur.en.replace(/'/g,"\\'")+'\')">🔊 Слушать</button><span class="hint-small">Переведи услышанное на русский</span></div>';
+    $("ans").placeholder="Перевод на русский"
+  }
+  eagleNewQuestion()}
+
+function levenshtein(a,b){
+  var m=a.length,n=b.length,d=[],i,j;
+  for(i=0;i<=m;i++)d[i]=[i];
+  for(j=0;j<=n;j++)d[0][j]=j;
+  for(i=1;i<=m;i++)for(j=1;j<=n;j++)
+    d[i][j]=a[i-1]==b[j-1]?d[i-1][j-1]:1+Math.min(d[i-1][j-1],d[i-1][j],d[i][j-1]);
+  return d[m][n]}
+
+function specificMistakeNote(userTxt,rightTxt){
+  var u=norm(userTxt).replace(/ё/g,"е").split(" ").filter(Boolean);
+  var r=norm(rightTxt).replace(/ё/g,"е").split(" ").filter(Boolean);
+  if(u.length!==r.length)
+    return "В ответе "+(u.length<r.length?"не хватает слова":"лишнее слово")+" по сравнению с верным вариантом.";
+  var diffIdx=[];
+  for(var i=0;i<r.length;i++)if(u[i]!==r[i])diffIdx.push(i);
+  if(!diffIdx.length)return null;
+  if(diffIdx.length===1){
+    var i=diffIdx[0],uw=u[i],rw=r[i],dist=levenshtein(uw,rw);
+    if(i===0)return "Отличается первое слово: у тебя «"+uw+"», нужно «"+rw+"».";
+    if(dist>=Math.min(uw.length,rw.length)*.5)
+      return "Слово «"+uw+"» здесь не подходит. Нужная форма — «"+rw+"».";
+    return "Почти верно — отличается только форма слова: «"+uw+"» вместо «"+rw+"»."
+  }
+  return null}
+
+function check(){
+  var userTxt=$("ans").value.trim();
+  if(!userTxt){$("err").style.display="block";return}
+  $("err").style.display="none";
+  var isBank=(cur.topic=="qwords"||cur.topic=="prep");
+  function altRuFor(p,t,f,pastIdxOverride){
+    if(cur.topic=="obj")return ruBuild(cur.v,p,t,f,OBJ_RU[cur.obj],pastIdxOverride);
+    if(cur.topic=="poss")return ruBuild(HAVE,p,t,f,ACC_POSS[p][cur.noun.g]+" "+(cur.noun.acc||cur.noun.ru),pastIdxOverride);
+    return null}
+  function ruMatches(txt){
+    var u=norm(txt).replace(/ё/g,"е"),target=norm(cur.ru).replace(/ё/g,"е");
+    if(u==target)return true;
+    if(!isBank){
+      if(cur.p=="ты"||cur.p=="вы"){
+        var altP=cur.p=="ты"?"вы":"ты",r1=altRuFor(altP,cur.t,cur.f);
+        if(r1&&u==norm(r1).replace(/ё/g,"е"))return true}
+      if(cur.t=="pa"&&(cur.p=="я"||cur.p=="ты")){
+        var altIdx=P[cur.p][2]===0?1:0,r2=altRuFor(cur.p,cur.t,cur.f,altIdx);
+        if(r2&&u==norm(r2).replace(/ё/g,"е"))return true}}
+    return false}
+  function enMatches(txt){
+    var u=norm(txt);
+    if(u==norm(cur.en))return true;
+    if(cur.topic=="poss"&&cur.noun.altEn){
+      for(var i=0;i<cur.noun.altEn.length;i++){
+        var alt=enSent(HAVE,cur.p,cur.t,cur.f)+" "+POSS_EN[cur.p]+" "+cur.noun.altEn[i];
+        if(u==norm(alt))return true}}
+    return false}
+  var good,right;
+  if(cur.type=="translate"){
+    right=cur.dir=="ru"?(isBank?cur.en:show(cur.en,cur.f)):cur.ru;
+    good=cur.dir=="ru"?enMatches(userTxt):ruMatches(userTxt)
+  }else if(cur.type=="listen"){
+    right=cur.ru;good=ruMatches(userTxt)
+  }else{
+    right=cur.answer;good=norm(userTxt)==norm(cur.answer)
+  }
+  tot++;
+  var idx=cur.topic=="obj"?cur.vi:cur.topic=="poss"?cur.ni:cur.ii;
+  var key=cur.topic+"|"+idx+"|"+(cur.p||""),html;
+  if(good){ok++;streak++;delete miss[key];
+    html='<span class="verdict good">Верно.</span> <span class="right">'+right+"</span>"}
+  else{streak=0;miss[key]=1;
+    html='<span class="verdict bad">Не совсем.</span><div class="right">'+
+      diff(right,userTxt)+"</div>"+'<div class="why">'+why(userTxt,right)+"</div>"}
+  $("fb").innerHTML=html;
+  $("score").textContent="Верно: "+ok+" из "+tot+" · подряд: "+streak;
+  done=true;$("chk").textContent="Дальше →";
+  eagleReact(good)}
+
+function schemeHint(){
+  if(cur.topic=="obj"){
+    var t=cur.t,f=cur.type=="dialogue"?"a":cur.f,third=cur.third,base;
+    if(t=="fu")base=f=="q"?"Will + подлежащее + глагол":f=="a"?"Подлежащее + will + глагол":"Подлежащее + won't + глагол";
+    else if(t=="pr")base=f=="q"?(third?"Does":"Do")+" + подлежащее + глагол":f=="a"?"Подлежащее + глагол"+(third?" (+s)":""):"Подлежащее + "+(third?"doesn't":"don't")+" + глагол";
+    else base=f=="q"?"Did + подлежащее + глагол":f=="a"?"Подлежащее + глагол в прошедшем":"Подлежащее + didn't + глагол";
+    return base+" + объектное местоимение"+(f=="q"?" ?":"")}
+  if(cur.topic=="poss"){
+    var t=cur.t,f=cur.type=="dialogue"?"a":cur.f,third=cur.third,base2;
+    if(t=="fu")base2=f=="q"?"Will + подлежащее + have":f=="a"?"Подлежащее + will + have":"Подлежащее + won't + have";
+    else if(t=="pr")base2=f=="q"?(third?"Does":"Do")+" + подлежащее + have":f=="a"?"Подлежащее + have"+(third?" (→ has)":""):"Подлежащее + "+(third?"doesn't":"don't")+" + have";
+    else base2=f=="q"?"Did + подлежащее + have":f=="a"?"Подлежащее + had":"Подлежащее + didn't + have";
+    return base2+" + притяжательное + существительное"+(f=="q"?" ?":"")}
+  if(cur.topic=="qwords")return "Вопросительное слово в начале, дальше обычный вопрос (do/does/did) — кроме who в роли подлежащего, там do-support не нужен.";
+  return "Предлог (to/in/from) + существительное места — сразу после глагола, у конца предложения."}
+
+function why(userTxt,rightTxt){
+  var parts=[],note=userTxt!=null?specificMistakeNote(userTxt,rightTxt):null;
+  if(note)parts.push(note);
+  var rule=schemeHint()+".";
+  if(cur.topic=="obj")rule+=" Объектное местоимение — после глагола, у самого конца предложения, даже в вопросе.";
+  else if(cur.topic=="poss")rule+=" Притяжательное слово стоит прямо перед существительным и по-английски не меняется, кто бы ни был обладателем.";
+  else if(cur.topic=="qwords")rule+=" 'Who' в роли подлежащего — единственное исключение без do/does/did.";
+  else rule+=" Ориентируйся не на дословный перевод, а на смысл: движение (to/from) или нахождение (in), заходишь ли ты 'внутрь' или идёшь 'к' кому-то.";
+  parts.push(rule);
+  return parts.join(" ")}
+
+function wordHint(){
+  if(cur.topic=="obj"){
+    var v=cur.v,irregular=!!v[2],past=pastForm(v);
+    return '<div class="wordhint">'+
+      '<div class="wh-row"><b>'+v[0]+"</b><span>— "+v[1]+"</span>"+'<button class="audio-btn" onclick="say(\''+v[0]+'\')">🔊</button></div>'+
+      '<div class="wh-row"><b>'+past+"</b><span class='wh-tag "+(irregular?"bad2":"good2")+"'>"+(irregular?"неправильная":"+ed")+"</span></div>"+
+      '<div class="wh-row"><b>'+OBJ_EN[cur.obj]+"</b><span>— "+OBJ_RU[cur.obj]+"</span></div></div>"}
+  if(cur.topic=="poss"){
+    return '<div class="wordhint">'+
+      '<div class="wh-row"><b>'+POSS_EN[cur.p]+"</b><span>— "+ACC_POSS[cur.p][cur.noun.g]+"</span></div>"+
+      '<div class="wh-row"><b>'+cur.noun.en+"</b><span>— "+cur.noun.ru+"</span>"+'<button class="audio-btn" onclick="say(\''+cur.noun.en+'\')">🔊</button></div></div>'}
+  var it=cur.item;
+  return '<div class="wordhint"><div class="wh-row"><b>'+(cur.topic=="qwords"?it.qru+" — "+it.q:it.prep)+"</b></div></div>"}
+
+Array.prototype.forEach.call(document.querySelectorAll(".hgrid [data-h]"),function(b){
+  b.onclick=function(){var h=b.getAttribute("data-h");
+    $("hint").innerHTML=h=="word"?wordHint():schemeHint()}});
+
+$("chk").onclick=function(){done?pick():check()};
+$("ans").addEventListener("keydown",function(e){if(e.key=="Enter"){e.preventDefault();done?pick():check()}});
+$("ans").addEventListener("input",function(){$("err").style.display="none"});
+["tns","frm"].forEach(function(i){$(i).onchange=pick});
+$("topic").onchange=function(){updateFilterVisibility();ok=0;tot=0;streak=0;miss={};pick()};
+updateFilterVisibility();
+
+(function(){
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){$("voice").style.display="none";return}
+  var rec=new SR();rec.interimResults=false;
+  rec.onresult=function(e){$("ans").value=e.results[0][0].transcript;$("err").style.display="none";
+    $("voice").textContent="🎙 Ответить голосом"};
+  rec.onerror=function(){$("voice").textContent="🎙 Ответить голосом"};
+  rec.onend=function(){$("voice").textContent="🎙 Ответить голосом"};
+  $("voice").onclick=function(){
+    var lang="en-US";
+    if(cur){
+      if(cur.type=="translate")lang=cur.dir=="ru"?"en-US":"ru-RU";
+      else if(cur.type=="listen")lang="ru-RU";
+      else lang="en-US"}
+    rec.lang=lang;
+    $("voice").textContent="🎙 Слушаю…";try{rec.start()}catch(e){}}})();
+
+/* ===== голосовой вопрос (Web Speech API + Netlify + Gemini, тот же движок, что в уроках 1 и 3) ===== */
+(function(){
+  if(!$("askBtn"))return;
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var modal=$("voiceModal"),orb=$("vcOrb"),statusEl=$("vcStatus"),transcriptEl=$("vcTranscript");
+  var rec=null,askAgainBtn=null,busy=false;
+
+  function setStatus(txt,isErr){
+    statusEl.textContent=txt;
+    statusEl.className="vc-status"+(isErr?" err":"");
+    if(isErr)setOrb("err")}
+  function setOrb(mode){orb.className="vc-orb"+(mode?" "+mode:"")}
+  function addLine(who,text){
+    if(!text)return;
+    var d=document.createElement("div");d.className="vc-line";
+    d.innerHTML="<b>"+who+":</b> "+String(text).replace(/</g,"&lt;");
+    transcriptEl.appendChild(d);transcriptEl.scrollTop=transcriptEl.scrollHeight;
+    return d}
+  function speak(text){
+    try{
+      if(!window.speechSynthesis)return;
+      var u=new SpeechSynthesisUtterance(text);
+      u.lang=/[a-zA-Z]/.test(text)&&!/[а-яА-ЯёЁ]/.test(text)?"en-US":"ru-RU";
+      window.speechSynthesis.speak(u)
+    }catch(e){}}
+  function showAskAgain(show){
+    if(askAgainBtn)askAgainBtn.remove();askAgainBtn=null;
+    if(show){
+      askAgainBtn=document.createElement("button");
+      askAgainBtn.type="button";askAgainBtn.className="primary";
+      askAgainBtn.textContent="🎙 Спросить ещё";
+      askAgainBtn.onclick=startListening;
+      $("vcClose").insertAdjacentElement("beforebegin",askAgainBtn)}}
+  async function askServer(question){
+    setOrb("");setStatus("Думаю…",false);busy=true;
+    var resp;
+    try{resp=await fetch("/.netlify/functions/ask-question",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({question:question})})}
+    catch(e){
+      setStatus("Не удалось связаться с сервером. Если страница открыта напрямую из файла — вопросы работают только на опубликованном сайте.",true);
+      busy=false;showAskAgain(true);return}
+    var data=null;
+    try{data=await resp.json()}catch(e){}
+    busy=false;
+    if(!resp.ok||!data||!data.answer){
+      setStatus((data&&data.error)||"Сервер не смог ответить — проверь, задан ли GEMINI_API_KEY в настройках Netlify.",true);
+      showAskAgain(true);return}
+    addLine("Ответ",data.answer);
+    setStatus("Готово",false);
+    speak(data.answer);
+    showAskAgain(true)}
+  function startListening(){
+    if(!SR){setStatus("Этот браузер не умеет распознавать речь — попробуй Chrome.",true);return}
+    if(busy)return;
+    showAskAgain(false);
+    setOrb("live");setStatus("Слушаю — говори",false);
+    rec=new SR();rec.lang="ru-RU";rec.interimResults=false;
+    rec.onresult=function(e){
+      var txt=e.results[0][0].transcript;
+      setOrb("");addLine("Ты",txt);
+      askServer(txt)};
+    rec.onerror=function(){setOrb("");setStatus("Не расслышала — попробуй ещё раз",true);showAskAgain(true)};
+    rec.onend=function(){if(orb.className.indexOf("live")>-1){setOrb("");}};
+    try{rec.start()}catch(e){setStatus("Не удалось включить микрофон",true);showAskAgain(true)}}
+  function cleanup(){
+    if(rec){try{rec.onresult=null;rec.onerror=null;rec.onend=null;rec.stop()}catch(e){}rec=null}
+    if(window.speechSynthesis)try{window.speechSynthesis.cancel()}catch(e){}
+    busy=false;showAskAgain(false)}
+  function closeModal(){cleanup();modal.classList.add("hide");document.body.classList.remove("no-scroll")}
+  $("vcClose").onclick=closeModal;
+  function openVoiceChat(){
+    transcriptEl.innerHTML="";setOrb("");
+    modal.classList.remove("hide");document.body.classList.add("no-scroll");
+    startListening()}
+  $("askBtn").onclick=openVoiceChat})();
+</script>
+</body>
+</html>
