@@ -169,6 +169,33 @@ mark{background:var(--mark);color:var(--markink);border-radius:3px;padding:0 2px
 .wh-tag.good2{border-color:var(--good);color:var(--good)}
 #hint{font-size:14px;color:var(--soft);line-height:1.55}
 #score{font-size:13px;color:var(--soft);text-align:center;margin-top:16px}
+
+/* voice chat modal */
+#voiceModal{position:fixed;inset:0;background:rgba(20,24,29,.5);display:flex;
+  align-items:center;justify-content:center;z-index:1000;padding:16px}
+#voiceModal.hide{display:none}
+.vc-card{background:var(--card);border-radius:16px;padding:26px 22px;max-width:380px;width:100%;
+  text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.vc-title{font-size:17px;font-weight:700;margin-bottom:2px}
+.vc-sub{font-size:13px;color:var(--soft);margin-bottom:18px}
+.vc-orb{width:84px;height:84px;border-radius:50%;margin:0 auto 16px;background:var(--navy);
+  opacity:.15;position:relative;transition:opacity .2s}
+.vc-orb::after{content:"🎙";position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;font-size:32px}
+.vc-orb.live{opacity:.9;animation:vcPulse 1.6s ease-in-out infinite}
+.vc-orb.err{background:var(--brick);opacity:.85;animation:none}
+@keyframes vcPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.vc-status{font-size:14px;margin-bottom:14px;min-height:20px;color:var(--soft)}
+.vc-status.err{color:var(--brick)}
+.vc-transcript{max-height:160px;overflow-y:auto;text-align:left;font-size:13.5px;line-height:1.5;
+  background:var(--tint);border-radius:10px;padding:10px 12px;margin-bottom:16px}
+.vc-transcript:empty{display:none}
+.vc-line{margin-bottom:6px}
+.vc-line b{color:var(--navy)}
+.vc-acts{display:flex;gap:10px;justify-content:center}
+.vc-acts button{font:inherit;font-size:14px;padding:9px 18px;border-radius:9px;border:1px solid var(--line);
+  background:transparent;color:var(--ink);cursor:pointer}
+.vc-acts button.primary{background:var(--brick);border-color:var(--brick);color:#fff}
 </style>
 </head>
 <body>
@@ -204,8 +231,8 @@ mark{background:var(--mark);color:var(--markink);border-radius:3px;padding:0 2px
     <button class="back" id="back">← к уроку</button>
     <div class="filters">
       <select id="tns"><option value="0">Все времена</option><option value="fu">Будущее</option><option value="pr">Настоящее</option><option value="pa">Прошедшее</option></select>
-      <select id="frm"><option value="0">Все формы</option><option value="q">Вопрос</option><option value="a">Утверждение</option><option value="n">Отрицание</option></select>
-      <select id="vcount" title="Сколько глаголов использовать в тренировке"><option value="10">9 глаголов (топ-10)</option><option value="30">29 глаголов (топ-30)</option><option value="100">98 глаголов (все 100)</option></select>
+      <select id="frm"><option value="0">Все типы предложений</option><option value="q">Вопрос</option><option value="a">Утверждение</option><option value="n">Отрицание</option></select>
+      <select id="vcount" title="Сколько глаголов использовать в тренировке"><option value="10">10 глаголов (топ-10)</option><option value="30">30 глаголов (топ-30)</option><option value="100">98 глаголов (все)</option></select>
       <select id="voice-select" class="hide"></select>
     </div>
   </div>
@@ -236,7 +263,8 @@ mark{background:var(--mark);color:var(--markink);border-radius:3px;padding:0 2px
       <div class="hints">
         <div class="hgrid">
           <button data-h="word">Слово</button>
-          <button data-h="scheme">Схема</button>
+          <button data-h="scheme">Схема предложения</button>
+          <button id="askBtn" type="button">🎙 Задать вопрос</button>
         </div>
         <div id="hint"></div>
       </div>
@@ -246,6 +274,19 @@ mark{background:var(--mark);color:var(--markink);border-radius:3px;padding:0 2px
   </div>
 </div>
 
+</div>
+
+<div id="voiceModal" class="hide" role="dialog" aria-modal="true">
+  <div class="vc-card">
+    <div class="vc-title">Голосовой чат с GPT</div>
+    <div class="vc-sub">Спроси что угодно про английский — ответит голосом</div>
+    <div id="vcOrb" class="vc-orb"></div>
+    <div id="vcStatus" class="vc-status">Подключение…</div>
+    <div id="vcTranscript" class="vc-transcript"></div>
+    <div class="vc-acts">
+      <button id="vcClose" type="button">Закрыть</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -261,8 +302,9 @@ mark{background:var(--mark);color:var(--markink);border-radius:3px;padding:0 2px
      уже сделана отдельная схема на странице урока, здесь дублировать не нужно.
    - born (№74) — "рождаться" в английском живёт только в пассиве (I was born),
      "Do you born?" грамматически невозможно.
-   Из-за этого в тегах "10/30/100" реально 9/29/98 глаголов — названы по её же
-   нумерации, а не по фактическому счёту.
+   Поэтому её нумерация 1-100 сдвинута на эти два пропуска: показанные в тренажёре
+   счётчики "10/30/100 глаголов" — это буквально топ-10, топ-30 и все 98 фактически
+   вошедших слов (100 минус be и born), а не её исходные порядковые номера.
    Ещё несколько мест, где перевод из присланного списка пришлось поправить:
    - loose (№57, опечатка) → lose = терять.
    - lay (№61, у неё "лежать") → лежать это отдельный глагол lie, а lay значит
@@ -290,10 +332,10 @@ var V10=[
 ["love","любить","",["люблю","любишь","любите","любим","любит","любят"],["любил","любила","любили"]],
 ["like","нравиться","",["нравится","нравится","нравится","нравится","нравится","нравится"],["нравилось","нравилось","нравилось"],"","dat"],
 ["believe","верить","",["верю","веришь","верите","верим","верит","верят"],["верил","верила","верили"]],
-["say","говорить","",["говорю","говоришь","говорите","говорим","говорит","говорят"],["говорил","говорила","говорили"]]
+["say","говорить","",["говорю","говоришь","говорите","говорим","говорит","говорят"],["говорил","говорила","говорили"]],
+["speak","разговаривать","",["разговариваю","разговариваешь","разговариваете","разговариваем","разговаривает","разговаривают"],["разговаривал","разговаривала","разговаривали"]]
 ];
 var V20MORE=[
-["speak","разговаривать","",["разговариваю","разговариваешь","разговариваете","разговариваем","разговаривает","разговаривают"],["разговаривал","разговаривала","разговаривали"]],
 ["tell","рассказывать","told",["рассказываю","рассказываешь","рассказываете","рассказываем","рассказывает","рассказывают"],["рассказывал","рассказывала","рассказывали"]],
 ["get","получать","got",["получаю","получаешь","получаете","получаем","получает","получают"],["получал","получала","получали"]],
 ["give","давать","gave",["даю","даёшь","даёте","даём","даёт","дают"],["давал","давала","давали"]],
@@ -312,10 +354,10 @@ var V20MORE=[
 ["put","класть","put",["кладу","кладёшь","кладёте","кладём","кладёт","кладут"],["клал","клала","клали"]],
 ["help","помогать","",["помогаю","помогаешь","помогаете","помогаем","помогает","помогают"],["помогал","помогала","помогали"]],
 ["bring","приносить","brought",["приношу","приносишь","приносите","приносим","приносит","приносят"],["приносил","приносила","приносили"]],
-["break","ломать","broke",["ломаю","ломаешь","ломаете","ломаем","ломает","ломают"],["ломал","ломала","ломали"]]
+["break","ломать","broke",["ломаю","ломаешь","ломаете","ломаем","ломает","ломают"],["ломал","ломала","ломали"]],
+["sleep","спать","slept",["сплю","спишь","спите","спим","спит","спят"],["спал","спала","спали"]]
 ];
 var V70MORE=[
-["sleep","спать","slept",["сплю","спишь","спите","спим","спит","спят"],["спал","спала","спали"]],
 ["wake","просыпаться","woke",["просыпаюсь","просыпаешься","просыпаетесь","просыпаемся","просыпается","просыпаются"],["просыпался","просыпалась","просыпались"]],
 ["eat","есть (кушать)","ate",["ем","ешь","едите","едим","ест","едят"],["ел","ела","ели"]],
 ["drink","пить","drank",["пью","пьёшь","пьёте","пьём","пьёт","пьют"],["пил","пила","пили"]],
@@ -879,6 +921,100 @@ $("ans").addEventListener("input",function(){$("err").style.display="none"});
       else lang="en-US"}
     rec.lang=lang;
     $("voice").textContent="🎙 Слушаю…";try{rec.start()}catch(e){}}})();
+
+/* ===== голосовой чат с GPT (кнопка "Задать вопрос") =====
+   Идёт через свою же Netlify-функцию /.netlify/functions/realtime-session,
+   которая держит настоящий ключ OpenAI на сервере и выдаёт браузеру только
+   временный (ephemeral) токен на одну сессию. Дальше браузер сам поднимает
+   голосовое WebRTC-соединение напрямую с OpenAI Realtime API — ключ в
+   браузер никогда не попадает. Работает только на опубликованном сайте
+   (нужна серверная функция) — через file:// эта кнопка честно покажет
+   сообщение об ошибке вместо того, чтобы молча не работать. */
+(function(){
+  if(!$("askBtn"))return;
+  var pc=null,dc=null,localStream=null,audioEl=null,assistantLine=null;
+  var modal=$("voiceModal"),orb=$("vcOrb"),statusEl=$("vcStatus"),transcriptEl=$("vcTranscript");
+
+  function setStatus(txt,isErr){
+    statusEl.textContent=txt;
+    statusEl.className="vc-status"+(isErr?" err":"");
+    orb.className="vc-orb"+(isErr?" err":(pc&&pc.connectionState==="connected"?" live":""))}
+
+  function addLine(who,text){
+    if(!text)return;
+    var d=document.createElement("div");d.className="vc-line";
+    d.innerHTML="<b>"+who+":</b> "+String(text).replace(/</g,"&lt;");
+    transcriptEl.appendChild(d);transcriptEl.scrollTop=transcriptEl.scrollHeight}
+
+  function handleEvent(raw){
+    var e;try{e=JSON.parse(raw)}catch(err){return}
+    if(e.type==="error"){setStatus((e.error&&e.error.message)||"Ошибка голосового чата",true);return}
+    if(e.type==="conversation.item.input_audio_transcription.completed"&&e.transcript){
+      addLine("Ты",e.transcript)}
+    else if(e.type==="response.audio_transcript.delta"){
+      if(!assistantLine){assistantLine=document.createElement("div");assistantLine.className="vc-line";
+        assistantLine.innerHTML="<b>GPT:</b> ";transcriptEl.appendChild(assistantLine)}
+      assistantLine.innerHTML+=String(e.delta||"").replace(/</g,"&lt;");
+      transcriptEl.scrollTop=transcriptEl.scrollHeight}
+    else if(e.type==="response.audio_transcript.done"){assistantLine=null}
+    else if(e.type==="session.created"){setStatus("Слушаю — говори",false)}}
+
+  function cleanup(){
+    if(dc){try{dc.close()}catch(e){}dc=null}
+    if(pc){try{pc.close()}catch(e){}pc=null}
+    if(localStream){localStream.getTracks().forEach(function(t){t.stop()});localStream=null}
+    if(audioEl){audioEl.srcObject=null;audioEl.remove();audioEl=null}
+    assistantLine=null}
+
+  function closeModal(){cleanup();modal.classList.add("hide");document.body.classList.remove("no-scroll")}
+  $("vcClose").onclick=closeModal;
+
+  async function openVoiceChat(){
+    transcriptEl.innerHTML="";
+    modal.classList.remove("hide");document.body.classList.add("no-scroll");
+    orb.className="vc-orb";setStatus("Подключение…",false);
+
+    try{localStream=await navigator.mediaDevices.getUserMedia({audio:true})}
+    catch(e){setStatus("Нужен доступ к микрофону — разреши его в браузере и попробуй снова",true);return}
+
+    var tokenResp;
+    try{tokenResp=await fetch("/.netlify/functions/realtime-session",{method:"POST"})}
+    catch(e){
+      setStatus("Не удалось связаться с сервером. Если страница открыта напрямую из файла — голосовой чат работает только на опубликованном сайте.",true);
+      cleanup();return}
+    var tokenData=null;
+    try{tokenData=await tokenResp.json()}catch(e){}
+    if(!tokenResp.ok||!tokenData||!tokenData.value){
+      setStatus((tokenData&&tokenData.error)||"Сервер не выдал токен для голосового чата — проверь, задан ли OPENAI_API_KEY в настройках Netlify.",true);
+      cleanup();return}
+    var ephemeralKey=tokenData.value;
+
+    try{
+      pc=new RTCPeerConnection();
+      audioEl=document.createElement("audio");audioEl.autoplay=true;audioEl.style.display="none";
+      document.body.appendChild(audioEl);
+      pc.ontrack=function(e){audioEl.srcObject=e.streams[0]};
+      localStream.getTracks().forEach(function(t){pc.addTrack(t,localStream)});
+      dc=pc.createDataChannel("oai-events");
+      dc.onmessage=function(e){handleEvent(e.data)};
+      dc.onopen=function(){setStatus("Слушаю — говори",false)};
+
+      var offer=await pc.createOffer();await pc.setLocalDescription(offer);
+      var sdpResp=await fetch("https://api.openai.com/v1/realtime/calls",{
+        method:"POST",body:offer.sdp,
+        headers:{"Authorization":"Bearer "+ephemeralKey,"Content-Type":"application/sdp"}});
+      if(!sdpResp.ok)throw new Error("openai_calls_"+sdpResp.status);
+      var answerSdp=await sdpResp.text();
+      await pc.setRemoteDescription({type:"answer",sdp:answerSdp});
+
+      pc.onconnectionstatechange=function(){
+        if(!pc)return;
+        if(pc.connectionState==="connected")setStatus("Слушаю — говори",false);
+        else if(pc.connectionState==="failed"||pc.connectionState==="disconnected")
+          setStatus("Соединение прервалось",true)}
+    }catch(e){setStatus("Не удалось установить голосовое соединение с GPT",true);cleanup()}}
+
+  $("askBtn").onclick=openVoiceChat})();
 </script>
 </body>
 </html>
