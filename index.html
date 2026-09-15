@@ -278,7 +278,7 @@ mark{background:var(--mark);color:var(--markink);border-radius:3px;padding:0 2px
 
 <div id="voiceModal" class="hide" role="dialog" aria-modal="true">
   <div class="vc-card">
-    <div class="vc-title">Голосовой чат с GPT</div>
+    <div class="vc-title">Задать вопрос голосом</div>
     <div class="vc-sub">Спроси что угодно про английский — ответит голосом</div>
     <div id="vcOrb" class="vc-orb"></div>
     <div id="vcStatus" class="vc-status">Подключение…</div>
@@ -922,97 +922,101 @@ $("ans").addEventListener("input",function(){$("err").style.display="none"});
     rec.lang=lang;
     $("voice").textContent="🎙 Слушаю…";try{rec.start()}catch(e){}}})();
 
-/* ===== голосовой чат с GPT (кнопка "Задать вопрос") =====
-   Идёт через свою же Netlify-функцию /.netlify/functions/realtime-session,
-   которая держит настоящий ключ OpenAI на сервере и выдаёт браузеру только
-   временный (ephemeral) токен на одну сессию. Дальше браузер сам поднимает
-   голосовое WebRTC-соединение напрямую с OpenAI Realtime API — ключ в
-   браузер никогда не попадает. Работает только на опубликованном сайте
-   (нужна серверная функция) — через file:// эта кнопка честно покажет
-   сообщение об ошибке вместо того, чтобы молча не работать. */
+/* ===== голосовой вопрос (кнопка "Задать вопрос") =====
+   Без WebRTC и без OpenAI — три простых шага, каждый на своей технологии:
+   1) распознавание речи прямо в браузере (Web Speech API — то же самое,
+      что уже используется в кнопке "Ответить голосом", бесплатно, без сервера);
+   2) текст вопроса уходит на свою же Netlify-функцию /.netlify/functions/ask-question,
+      которая держит бесплатный ключ Google Gemini на сервере (ключ в браузер
+      никогда не попадает) и возвращает текстовый ответ;
+   3) ответ озвучивается через синтез речи браузера (тот же движок, что и
+      озвучка слов в тренажёре).
+   Работает только на опубликованном сайте (нужна серверная функция) — через
+   file:// кнопка честно покажет сообщение об ошибке вместо того, чтобы молча
+   не работать. */
 (function(){
   if(!$("askBtn"))return;
-  var pc=null,dc=null,localStream=null,audioEl=null,assistantLine=null;
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   var modal=$("voiceModal"),orb=$("vcOrb"),statusEl=$("vcStatus"),transcriptEl=$("vcTranscript");
+  var rec=null,askAgainBtn=null,busy=false;
 
   function setStatus(txt,isErr){
     statusEl.textContent=txt;
     statusEl.className="vc-status"+(isErr?" err":"");
-    orb.className="vc-orb"+(isErr?" err":(pc&&pc.connectionState==="connected"?" live":""))}
+    if(isErr)setOrb("err")}
+
+  function setOrb(mode){orb.className="vc-orb"+(mode?" "+mode:"")}
 
   function addLine(who,text){
     if(!text)return;
     var d=document.createElement("div");d.className="vc-line";
     d.innerHTML="<b>"+who+":</b> "+String(text).replace(/</g,"&lt;");
-    transcriptEl.appendChild(d);transcriptEl.scrollTop=transcriptEl.scrollHeight}
+    transcriptEl.appendChild(d);transcriptEl.scrollTop=transcriptEl.scrollHeight;
+    return d}
 
-  function handleEvent(raw){
-    var e;try{e=JSON.parse(raw)}catch(err){return}
-    if(e.type==="error"){setStatus((e.error&&e.error.message)||"Ошибка голосового чата",true);return}
-    if(e.type==="conversation.item.input_audio_transcription.completed"&&e.transcript){
-      addLine("Ты",e.transcript)}
-    else if(e.type==="response.audio_transcript.delta"){
-      if(!assistantLine){assistantLine=document.createElement("div");assistantLine.className="vc-line";
-        assistantLine.innerHTML="<b>GPT:</b> ";transcriptEl.appendChild(assistantLine)}
-      assistantLine.innerHTML+=String(e.delta||"").replace(/</g,"&lt;");
-      transcriptEl.scrollTop=transcriptEl.scrollHeight}
-    else if(e.type==="response.audio_transcript.done"){assistantLine=null}
-    else if(e.type==="session.created"){setStatus("Слушаю — говори",false)}}
+  function speak(text){
+    try{
+      if(!window.speechSynthesis)return;
+      var u=new SpeechSynthesisUtterance(text);
+      u.lang=/[a-zA-Z]/.test(text)&&!/[а-яА-ЯёЁ]/.test(text)?"en-US":"ru-RU";
+      window.speechSynthesis.speak(u)
+    }catch(e){}}
+
+  function showAskAgain(show){
+    if(askAgainBtn)askAgainBtn.remove();askAgainBtn=null;
+    if(show){
+      askAgainBtn=document.createElement("button");
+      askAgainBtn.type="button";askAgainBtn.className="primary";
+      askAgainBtn.textContent="🎙 Спросить ещё";
+      askAgainBtn.onclick=startListening;
+      $("vcClose").insertAdjacentElement("beforebegin",askAgainBtn)}}
+
+  async function askServer(question){
+    setOrb("");setStatus("Думаю…",false);busy=true;
+    var resp;
+    try{resp=await fetch("/.netlify/functions/ask-question",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({question:question})})}
+    catch(e){
+      setStatus("Не удалось связаться с сервером. Если страница открыта напрямую из файла — вопросы работают только на опубликованном сайте.",true);
+      busy=false;showAskAgain(true);return}
+    var data=null;
+    try{data=await resp.json()}catch(e){}
+    busy=false;
+    if(!resp.ok||!data||!data.answer){
+      setStatus((data&&data.error)||"Сервер не смог ответить — проверь, задан ли GEMINI_API_KEY в настройках Netlify.",true);
+      showAskAgain(true);return}
+    addLine("Ответ",data.answer);
+    setStatus("Готово",false);
+    speak(data.answer);
+    showAskAgain(true)}
+
+  function startListening(){
+    if(!SR){setStatus("Этот браузер не умеет распознавать речь — попробуй Chrome.",true);return}
+    if(busy)return;
+    showAskAgain(false);
+    setOrb("live");setStatus("Слушаю — говори",false);
+    rec=new SR();rec.lang="ru-RU";rec.interimResults=false;
+    rec.onresult=function(e){
+      var txt=e.results[0][0].transcript;
+      setOrb("");addLine("Ты",txt);
+      askServer(txt)};
+    rec.onerror=function(){setOrb("");setStatus("Не расслышала — попробуй ещё раз",true);showAskAgain(true)};
+    rec.onend=function(){if(orb.className.indexOf("live")>-1){setOrb("");}};
+    try{rec.start()}catch(e){setStatus("Не удалось включить микрофон",true);showAskAgain(true)}}
 
   function cleanup(){
-    if(dc){try{dc.close()}catch(e){}dc=null}
-    if(pc){try{pc.close()}catch(e){}pc=null}
-    if(localStream){localStream.getTracks().forEach(function(t){t.stop()});localStream=null}
-    if(audioEl){audioEl.srcObject=null;audioEl.remove();audioEl=null}
-    assistantLine=null}
+    if(rec){try{rec.onresult=null;rec.onerror=null;rec.onend=null;rec.stop()}catch(e){}rec=null}
+    if(window.speechSynthesis)try{window.speechSynthesis.cancel()}catch(e){}
+    busy=false;showAskAgain(false)}
 
   function closeModal(){cleanup();modal.classList.add("hide");document.body.classList.remove("no-scroll")}
   $("vcClose").onclick=closeModal;
 
-  async function openVoiceChat(){
-    transcriptEl.innerHTML="";
+  function openVoiceChat(){
+    transcriptEl.innerHTML="";setOrb("");
     modal.classList.remove("hide");document.body.classList.add("no-scroll");
-    orb.className="vc-orb";setStatus("Подключение…",false);
-
-    try{localStream=await navigator.mediaDevices.getUserMedia({audio:true})}
-    catch(e){setStatus("Нужен доступ к микрофону — разреши его в браузере и попробуй снова",true);return}
-
-    var tokenResp;
-    try{tokenResp=await fetch("/.netlify/functions/realtime-session",{method:"POST"})}
-    catch(e){
-      setStatus("Не удалось связаться с сервером. Если страница открыта напрямую из файла — голосовой чат работает только на опубликованном сайте.",true);
-      cleanup();return}
-    var tokenData=null;
-    try{tokenData=await tokenResp.json()}catch(e){}
-    if(!tokenResp.ok||!tokenData||!tokenData.value){
-      setStatus((tokenData&&tokenData.error)||"Сервер не выдал токен для голосового чата — проверь, задан ли OPENAI_API_KEY в настройках Netlify.",true);
-      cleanup();return}
-    var ephemeralKey=tokenData.value;
-
-    try{
-      pc=new RTCPeerConnection();
-      audioEl=document.createElement("audio");audioEl.autoplay=true;audioEl.style.display="none";
-      document.body.appendChild(audioEl);
-      pc.ontrack=function(e){audioEl.srcObject=e.streams[0]};
-      localStream.getTracks().forEach(function(t){pc.addTrack(t,localStream)});
-      dc=pc.createDataChannel("oai-events");
-      dc.onmessage=function(e){handleEvent(e.data)};
-      dc.onopen=function(){setStatus("Слушаю — говори",false)};
-
-      var offer=await pc.createOffer();await pc.setLocalDescription(offer);
-      var sdpResp=await fetch("https://api.openai.com/v1/realtime/calls",{
-        method:"POST",body:offer.sdp,
-        headers:{"Authorization":"Bearer "+ephemeralKey,"Content-Type":"application/sdp"}});
-      if(!sdpResp.ok)throw new Error("openai_calls_"+sdpResp.status);
-      var answerSdp=await sdpResp.text();
-      await pc.setRemoteDescription({type:"answer",sdp:answerSdp});
-
-      pc.onconnectionstatechange=function(){
-        if(!pc)return;
-        if(pc.connectionState==="connected")setStatus("Слушаю — говори",false);
-        else if(pc.connectionState==="failed"||pc.connectionState==="disconnected")
-          setStatus("Соединение прервалось",true)}
-    }catch(e){setStatus("Не удалось установить голосовое соединение с GPT",true);cleanup()}}
+    startListening()}
 
   $("askBtn").onclick=openVoiceChat})();
 </script>
