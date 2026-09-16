@@ -228,9 +228,9 @@ mark{background:var(--mark);color:var(--markink);border-radius:3px;padding:0 2px
 
   <p class="section-title">Теория</p>
   <div class="theory">
-    <p>Ты правильно заметила: в русском настоящем времени глагол «быть» не звучит вообще — ни в утверждении, ни в вопросе, ни в отрицании. «Я дома», «Ты не дома?», «Он на работе» — везде подлежащее идёт сразу к обстоятельству места, без связки. Лингвисты называют это <b>нулевой связкой</b>: глагол там как бы есть по смыслу, просто не произносится.</p>
-    <p>В английском связка <b>be</b> обязательна и не пропадает никогда — в любом из трёх времён и в любой из трёх форм предложения. «I home» — грамматически невозможно, нужно «I <b>am</b> home».</p>
-    <p>Важная деталь, которую стоит знать заранее: в прошедшем и будущем времени русское «быть» никуда не пропадает — оно точно так же обязательно, как и в английском. Будущее — «я <b>буду</b> дома» — это та же формула будущего времени, что была в уроке 1 (буду / будешь / будет / будем / будете / будут). Прошедшее — «я <b>был</b> дома», «она <b>была</b> дома», «они <b>были</b> дома». Пропадает связка только в настоящем — и именно поэтому по-русски так легко забыть поставить am/is/are в английском.</p>
+    <p>В русском настоящем времени глагол «быть» не произносится: «Я дома», «Ты не дома?», «Он на работе» — подлежащее идёт сразу к месту, без связки. Это <b>нулевая связка</b>.</p>
+    <p>В английском <b>be</b> обязательна всегда, в любом времени и форме. «I home» невозможно — только «I <b>am</b> home».</p>
+    <p>В прошедшем и будущем «быть» и по-русски не пропадает: <b>буду / будешь / будет…</b> (формула из урока 1) и <b>был / была / были</b>. Связка исчезает только в настоящем — отсюда и частая ошибка забыть am/is/are.</p>
     <div class="compare">
       <div class="cbox">
         <div class="ctitle">Русский</div>
@@ -245,7 +245,7 @@ mark{background:var(--mark);color:var(--markink);border-radius:3px;padding:0 2px
         <div class="cline">Future: <b>will be</b> — "I will be home"</div>
       </div>
     </div>
-    <p>В настоящем времени связка выбирается по подлежащему: <b>I — am</b>, <b>he / she — is</b>, <b>you / we / they — are</b>. В прошедшем — только два варианта: <b>I / he / she — was</b>, <b>you / we / they — were</b>. В будущем — всегда одна форма <b>be</b> после will, кто бы ни было подлежащим.</p>
+    <p>Наст.: <b>I — am</b>, <b>he / she — is</b>, <b>you / we / they — are</b>. Прош.: <b>I / he / she — was</b>, <b>you / we / they — were</b>. Буд.: всегда <b>be</b> после will.</p>
   </div>
 
   <p class="section-title">Схема</p>
@@ -645,17 +645,15 @@ function levenshtein(a,b){
 function specificMistakeNote(userTxt,rightTxt){
   var u=norm(userTxt).replace(/ё/g,"е").split(" ").filter(Boolean);
   var r=norm(rightTxt).replace(/ё/g,"е").split(" ").filter(Boolean);
-  if(u.length!==r.length)
-    return "В ответе "+(u.length<r.length?"не хватает слова":"лишнее слово")+" по сравнению с верным вариантом.";
+  if(u.length!==r.length)return u.length<r.length?"Не хватает слова.":"Лишнее слово.";
   var diffIdx=[];
   for(var i=0;i<r.length;i++)if(u[i]!==r[i])diffIdx.push(i);
   if(!diffIdx.length)return null;
   if(diffIdx.length===1){
     var i=diffIdx[0],uw=u[i],rw=r[i],dist=levenshtein(uw,rw);
-    if(i===0)return "Отличается первое слово: у тебя «"+uw+"», нужно «"+rw+"».";
-    if(dist>=Math.min(uw.length,rw.length)*.5)
-      return "Слово «"+uw+"» здесь не подходит — похоже на другое слово или другую форму связки be. Нужная форма — «"+rw+"».";
-    return "Почти верно — отличается только форма слова: «"+uw+"» вместо «"+rw+"»."
+    if(i===0)return "«"+uw+"» → «"+rw+"» (первое слово).";
+    if(dist>=Math.min(uw.length,rw.length)*.5)return "«"+uw+"» → «"+rw+"» (другое слово).";
+    return "«"+uw+"» → «"+rw+"» (форма слова)."
   }
   return null}
 
@@ -711,15 +709,8 @@ function schemeHint(){
     :"Подлежащее + "+(formPa=="was"?"wasn't":"weren't")+" + место"}
 
 function why(userTxt,rightTxt){
-  var t=cur.t,parts=[];
   var note=userTxt!=null?specificMistakeNote(userTxt,rightTxt):null;
-  if(note)parts.push(note);
-  var rule=schemeHint()+".";
-  if(t=="pr")rule+=" В настоящем времени связка выбирается по подлежащему: I — am, he/she — is, you/we/they — are. По-русски в настоящем времени связки нет вообще.";
-  else if(t=="pa")rule+=" В прошедшем времени только два варианта: was (я/he/she) и were (you/we/they).";
-  else rule+=" В будущем времени после will всегда одна форма — be, независимо от подлежащего.";
-  parts.push(rule);
-  return parts.join(" ")}
+  return (note?note+" ":"")+schemeHint()+"."}
 
 function wordHint(){
   var c=cur.comp;

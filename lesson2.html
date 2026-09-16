@@ -225,11 +225,11 @@ mark{background:var(--mark);color:var(--markink);border-radius:3px;padding:0 2px
       <tr><td>наш / наша / наше</td><td><b>our</b></td></tr>
       <tr><td>их (не меняется)</td><td><b>their</b></td></tr>
     </table>
-    <p>Интересная деталь: <b>его</b> и <b>её</b> по-русски тоже не меняются по роду предмета — «его дом» и «его книга» одинаково «его». Меняются только мой/твой/наш, потому что у них самих есть окончание, которое подстраивается. В английском не подстраивается вообще ничего.</p>
-    <p><b>Место в предложении:</b> притяжательное слово всегда стоит прямо перед существительным, как отдельное слово-прилепа — never отдельно от него.</p>
+    <p><b>его</b> и <b>её</b> тоже не меняются по роду предмета по-русски — «его дом» и «его книга» одинаково «его». Меняются только мой/твой/наш, потому что у них есть своё окончание. В английском не меняется ничего.</p>
+    <p><b>Место в предложении:</b> притяжательное слово стоит прямо перед существительным, неразрывно с ним.</p>
     <div class="formula-line">Подлежащее + have/has/had/will have + <b>притяжательное</b> + существительное (?)</div>
     <p class="fnote" style="font-size:12.5px;color:var(--soft);margin-top:-4px">Примеры: <b>She has her book.</b> — У неё есть её книга. &nbsp;·&nbsp; <b>Do you have your car?</b> — У тебя есть твоя машина?</p>
-    <p style="font-size:12.5px;color:var(--soft)">В живой речи чаще говорят «I have a book» без притяжательного, или вообще другой конструкцией — «I've got my book» / «There's my book». Здесь через have + притяжательное — потому что глагол have уже знаком по уроку 1, и на нём удобнее всего тренировать именно притяжательные слова.</p>
+    <p style="font-size:12.5px;color:var(--soft)">В живой речи чаще звучит «I've got my book» или «There's my book» — здесь через have, потому что глагол уже знаком по уроку 1 и на нём удобно тренировать именно притяжательные слова.</p>
   </div>
 
   <p class="section-title">3 · Вопросительные слова</p>
@@ -249,7 +249,7 @@ mark{background:var(--mark);color:var(--markink);border-radius:3px;padding:0 2px
 
   <p class="section-title">4 · Предлоги to / in / from</p>
   <div class="theory">
-    <p>Дословного соответствия между этими тремя предлогами и русскими предлогами нет — русский язык делает различие, которое английский стирает. Это самая частая причина ошибок, так что стоит понять логику, а не запоминать пары слов.</p>
+    <p>Дословного соответствия нет — русский язык различает то, что английский стирает. Логика важнее заучивания пар слов.</p>
     <p><b>to</b> — направление движения, куда-то. По-русски в зависимости от места это разные предлоги:</p>
     <table class="ptable">
       <tr><th>Что за место</th><th>Русский предлог</th><th>Пример</th></tr>
@@ -862,17 +862,15 @@ function levenshtein(a,b){
 function specificMistakeNote(userTxt,rightTxt){
   var u=norm(userTxt).replace(/ё/g,"е").split(" ").filter(Boolean);
   var r=norm(rightTxt).replace(/ё/g,"е").split(" ").filter(Boolean);
-  if(u.length!==r.length)
-    return "В ответе "+(u.length<r.length?"не хватает слова":"лишнее слово")+" по сравнению с верным вариантом.";
+  if(u.length!==r.length)return u.length<r.length?"Не хватает слова.":"Лишнее слово.";
   var diffIdx=[];
   for(var i=0;i<r.length;i++)if(u[i]!==r[i])diffIdx.push(i);
   if(!diffIdx.length)return null;
   if(diffIdx.length===1){
     var i=diffIdx[0],uw=u[i],rw=r[i],dist=levenshtein(uw,rw);
-    if(i===0)return "Отличается первое слово: у тебя «"+uw+"», нужно «"+rw+"».";
-    if(dist>=Math.min(uw.length,rw.length)*.5)
-      return "Слово «"+uw+"» здесь не подходит. Нужная форма — «"+rw+"».";
-    return "Почти верно — отличается только форма слова: «"+uw+"» вместо «"+rw+"»."
+    if(i===0)return "«"+uw+"» → «"+rw+"» (первое слово).";
+    if(dist>=Math.min(uw.length,rw.length)*.5)return "«"+uw+"» → «"+rw+"» (другое слово).";
+    return "«"+uw+"» → «"+rw+"» (форма слова)."
   }
   return null}
 
@@ -943,15 +941,8 @@ function schemeHint(){
   return "Предлог (to/in/from) + существительное места — сразу после глагола, у конца предложения."}
 
 function why(userTxt,rightTxt){
-  var parts=[],note=userTxt!=null?specificMistakeNote(userTxt,rightTxt):null;
-  if(note)parts.push(note);
-  var rule=schemeHint()+".";
-  if(cur.topic=="obj")rule+=" Объектное местоимение — после глагола, у самого конца предложения, даже в вопросе.";
-  else if(cur.topic=="poss")rule+=" Притяжательное слово стоит прямо перед существительным и по-английски не меняется, кто бы ни был обладателем.";
-  else if(cur.topic=="qwords")rule+=" 'Who' в роли подлежащего — единственное исключение без do/does/did.";
-  else rule+=" Ориентируйся не на дословный перевод, а на смысл: движение (to/from) или нахождение (in), заходишь ли ты 'внутрь' или идёшь 'к' кому-то.";
-  parts.push(rule);
-  return parts.join(" ")}
+  var note=userTxt!=null?specificMistakeNote(userTxt,rightTxt):null;
+  return (note?note+" ":"")+schemeHint()+"."}
 
 function wordHint(){
   if(cur.topic=="obj"){
